@@ -1,6 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
-// const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {}
@@ -48,11 +48,11 @@ module.exports = (sequelize, DataTypes) => {
 //     User.Friend = models.User.belongsToMany(models.Friend, { through: "UserFriend" });
 //   };
 
-//   User.beforeSave((user, options) => {
-//     if (user.password) {
-//       user.passwordHash = bcrypt.hashSync(user.password, 10);
-//     }
-//   });
+  User.beforeSave((user, options) => {
+    if (user.password) {
+      user.passwordHash = bcrypt.hashSync(user.password, 10);
+    }
+  });
 
   return User;
 };
