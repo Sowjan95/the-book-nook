@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
 
   MyBook.associate = (models) => {
     // associations can be defined here
-    MyBook.User = models.MyBook.belongsTo(models.User);
+    // MyBook.User = models.MyBook.belongsTo(models.User);
     // models.MyBook.belongsTo(models.Book); // MyBook taken from Book api
   };
 
