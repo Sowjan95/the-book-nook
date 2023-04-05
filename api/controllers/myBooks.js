@@ -2,15 +2,15 @@ const express = require("express");
 const router = express.Router();
 const passport = require("../middlewares/authentication");
 const db = require("../models");
-const { MyBook, Book } = db; // after Book API is implemented
+const { MyBook } = db; // after Book API is implemented
 
 // get all mybooks (this can only work with Books not MyBooks)
-// router.get("/", (req, res) => {
-//     MyBook.findAll({}).then((allMyBooks) => res.json(allMyBooks));
-// });
+router.get("/", (req, res) => {
+    MyBook.findAll({}).then((allMyBooks) => res.json(allMyBooks));
+});
 
 //get all mybooks belonging to user
-router.get("/my-mybooks", passport.isAuthenticated(), (req, res) => {
+router.get("/allmybooks", passport.isAuthenticated(), (req, res) => {
   const user = req.user;
   user.getMyBooks().then((allMyBooks) => res.json(allMyBooks));
 });
@@ -54,23 +54,19 @@ router.get("/author/:author", (req, res) => {
 // post a new mybook
 // this would have to be changed so that it takes in the information from Book api to populate it's information
 // perhaps we would need something else to connect MyBook to the Book api book, such as a unique id
-// router.post("/", passport.isAuthenticated(),  async (req, res) => {
-//   let { title, description, address, date, price, link, type} = req.body;
-//   let userId = (req.user).id;
-//   let category = await Category.findOne({
-//     where:{
-//       type: type,
-//     }
-//   })
-//   MyBook.create({ title, description, address, date, price, link, UserId: userId, CategoryId: category.id})
-//     .then((newMyBook) => {
-//       (req.user).addMyBook(newMyBook);
-//       res.status(201).json(newMyBook);
-//     })
-//     .catch((err) => {
-//       res.status(400).json(err);
-//     });
-// });
+router.post("/", passport.isAuthenticated(),  async (req, res) => {
+  let { title, author } = req.body;
+  let userId = (req.user).id;
+
+  MyBook.create({ title, author, UserId: userId })
+    .then((newMyBook) => {
+      (req.user).addMyBook(newMyBook);
+      res.status(201).json(newMyBook);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
 
 // update mybook
 // perhaps update my book can be dateStarted and dateRead, etc. which would need to be added to model
