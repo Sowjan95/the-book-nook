@@ -19,7 +19,7 @@ function  LoginPage(props) {
     setAuthMode(authMode === "signin" ? "signup" : "signin")
   }
 
-  const handleSubmit = async (event) => {
+  const handleSignup = async (event) => {
     event.preventDefault();
     try {
       let response = await fetch("/api/auth/signup", {
@@ -103,7 +103,7 @@ function  LoginPage(props) {
 
   return (
     <div className="Auth-form-container">
-      <form className="Auth-form" onSubmit={handleSubmit}>
+      <form className="Auth-form" onSubmit={handleSignup}>
         <div className="Auth-form-content">
           <h3 className="Auth-form-title">Sign up</h3>
           <div className="text-center text-black">
