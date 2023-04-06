@@ -85,10 +85,3 @@ function useAuth() {
 }
 
 export { useAuth, AuthProvider };
-
-
-// will need to add the follow to App.js:
-// import { AuthProvider } from "./context/AuthContext";
-// And this to LoginPage.js:
-// import { useAuth } from "../context/AuthContext.js";
-// to connect frontend and backend for login
