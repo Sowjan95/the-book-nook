@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   
   Shelf.associate = (models) => {
     // associations can be defined here
-    models.Shelf.belongsToMany(models.MyBook, { through: "ShelfMyBook" });
+    Shelf.MyBooks = models.Shelf.belongsToMany(models.MyBook, { through: "ShelfMyBook" });
   };
 
   return Shelf;
