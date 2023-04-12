@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 });
 
 
-//get mybooks by title 
+//get books by title 
 router.get("/title/:title", (req, res) => {
   const {title}  = req.params;
   Book.findAll({
@@ -21,7 +21,7 @@ router.get("/title/:title", (req, res) => {
 });
 
 
-//get mybooks by author 
+//get books by author 
 router.get("/author/:author", (req, res) => {
     const {author}  = req.params;
     Book.findAll({

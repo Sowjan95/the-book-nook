@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("../middlewares/authentication");
 const db = require("../models");
-const { MyBook, Book } = db; // after Book API is implemented
+const { MyBook, Book, Shelf } = db; // after Book API is implemented
 
 //get all mybooks belonging to user
 router.get("/allmybooks", passport.isAuthenticated(), (req, res) => {
@@ -48,10 +48,8 @@ router.get("/:type", passport.isAuthenticated(), async (req, res) => {
 
 
 // post a new mybook
-// this would have to be changed so that it takes in the information from Book api to populate it's information
-// perhaps we would need something else to connect MyBook to the Book api book, such as a unique id
 router.post("/", passport.isAuthenticated(),  async (req, res) => {
-  let { rating, review, like, pages_read, date_started, date_ended, title } = req.body;
+  let { rating, review, like, pages_read, date_started, date_ended, title, type } = req.body;
   let userId = (req.user).id;
   let shelf = await Shelf.findOne({
     where:{
@@ -61,7 +59,7 @@ router.post("/", passport.isAuthenticated(),  async (req, res) => {
   let book = await Book.findOne({
     where:{
       title: title,
-    }
+    },
   })
 
   MyBook.create({ rating, review, like, pages_read, date_started, date_ended, UserId: userId, BookId: book.id, ShelfId: shelf.id })
@@ -85,7 +83,7 @@ router.put("/:id", passport.isAuthenticated(), async (req, res) => {
             type: type,
         }
     })
-    
+
     MyBook.findByPk(id).then((mybook) => {
       if (!mybook) {
         return res.sendStatus(404);

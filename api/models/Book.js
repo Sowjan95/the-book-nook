@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
           len: [3, 250],
           notEmpty: true,
         },
+        unique: true,
       },
       author: {
         type: DataTypes.STRING,
@@ -22,9 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       pages: {
         type: DataTypes.INTEGER,
-        validate: {
-            notEmpty: true
-        }
+        defaultValue: 100
       }
     },
     {
