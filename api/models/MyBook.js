@@ -34,9 +34,9 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   MyBook.associate = (models) => {
-    MyBook.Book = models.MyBook.belongsTo(models.Book);
+    models.MyBook.belongsTo(models.Book);
     MyBook.User = models.MyBook.belongsTo(models.User);
-    MyBook.Shelf = models.MyBook.belongsTo(models.Shelf);
+    models.MyBook.belongsTo(models.Shelf);
   };
 
   return MyBook;

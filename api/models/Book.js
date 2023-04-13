@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Book.associate = (models) => {
     // associations can be defined here
-    Book.MyBook = models.Book.hasMany(models.MyBook);
+    models.Book.hasMany(models.MyBook);
   };
 
   return Book;

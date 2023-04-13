@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 //get books by title 
 router.get("/title/:title", (req, res) => {
   const {title}  = req.params;
-  Book.findAll({
+  Book.findOne({
     where:{
       title: title,
     }

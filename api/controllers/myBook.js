@@ -49,7 +49,7 @@ router.get("/:type", passport.isAuthenticated(), async (req, res) => {
 
 // post a new mybook
 router.post("/", passport.isAuthenticated(),  async (req, res) => {
-  let { rating, review, like, pages_read, date_started, date_ended, title, type } = req.body;
+  let { rating, review, like, pages_read, date_started, date_ended, type, title } = req.body;
   let userId = (req.user).id;
   let shelf = await Shelf.findOne({
     where:{
@@ -62,7 +62,7 @@ router.post("/", passport.isAuthenticated(),  async (req, res) => {
     },
   })
 
-  MyBook.create({ rating, review, like, pages_read, date_started, date_ended, UserId: userId, BookId: book.id, ShelfId: shelf.id })
+  MyBook.create({ rating, review, like, pages_read, date_started, date_ended, UserId: userId, ShelfId: shelf.id, BookId: book.id })
     .then((newMyBook) => {
       (req.user).addMyBook(newMyBook);
       res.status(201).json(newMyBook);

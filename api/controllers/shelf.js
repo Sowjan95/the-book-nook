@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../models");
 const { Shelf } = db;
 
-// get all categories
+// get all shelves
 router.get("/", (req, res) => {
     Shelf.findAll({}).then((allShelves) => res.json(allShelves));
 });
