@@ -11,7 +11,8 @@ router.get("/allmybooks", passport.isAuthenticated(), (req, res) => {
 });
 
 //get mybooks by title 
-router.get("/title/:title", async (req, res) => {
+router.get("/title/:title", passport.isAuthenticated(), async (req, res) => {
+    const user = req.user;
     const {title}  = req.params;
     let book = await Book.findOne({
         where:{
@@ -21,12 +22,14 @@ router.get("/title/:title", async (req, res) => {
     MyBook.findAll({
         where:{
         BookId: book.id,
+        UserId: user.id
         }
     }).then((allMyBooks) => res.json(allMyBooks));
 });
 
 //get mybooks by author 
-router.get("/author/:author", async (req, res) => {
+router.get("/author/:author", passport.isAuthenticated(), async (req, res) => {
+    const user = req.user;
     const {author}  = req.params;
     let book = await Book.findOne({
         where:{
@@ -36,6 +39,7 @@ router.get("/author/:author", async (req, res) => {
     MyBook.findAll({
       where:{
         BookId: book.id,
+        UserId: user.id
       }
     }).then((allMyBooks) => res.json(allMyBooks));
   });
@@ -49,11 +53,12 @@ router.get("/:type", passport.isAuthenticated(), async (req, res) => {
         type: type,
         }
     });
-    user.getMyBooks().findAll({
+    MyBook.findAll({
         where:{
-        ShelfId: shelf.id,
+          ShelfId: shelf.id,
+          UserId: user.id
         }
-    }).then((allMyBooks) => res.json(allMyBooks));
+      }).then((allMyBooks) => res.json(allMyBooks));
 });
 
 
