@@ -11,21 +11,31 @@ router.get("/allmybooks", passport.isAuthenticated(), (req, res) => {
 });
 
 //get mybooks by title 
-router.get("/title/:title", (req, res) => {
+router.get("/title/:title", async (req, res) => {
     const {title}  = req.params;
+    let book = await Book.findOne({
+        where:{
+            title: title,
+        },
+    })
     MyBook.findAll({
         where:{
-        title: title,
+        BookId: book.id,
         }
     }).then((allMyBooks) => res.json(allMyBooks));
 });
 
 //get mybooks by author 
-router.get("/author/:author", (req, res) => {
+router.get("/author/:author", async (req, res) => {
     const {author}  = req.params;
+    let book = await Book.findOne({
+        where:{
+            author: author,
+        },
+    })
     MyBook.findAll({
       where:{
-        author: author,
+        BookId: book.id,
       }
     }).then((allMyBooks) => res.json(allMyBooks));
   });
