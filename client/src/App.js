@@ -8,6 +8,9 @@ import PostsListPage from "./pages/PostsListPage";
 import PostFormPage from "./pages/PostFormPage";
 import ShowPostPage from "./pages/ShowPostPage";
 import AboutUsPage from "./pages/AboutUsPage";
+import UserProfile from "./pages/UserProfilePage";
+
+import "bootstrap/dist/css/bootstrap.min.css"
 
 import "./App.css";
 
@@ -34,6 +37,11 @@ function Navigation(props) {
               Log In
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/user-profile">
+              Profile
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
@@ -55,6 +63,7 @@ function App() {
               <Route path="/posts/:id" element={<ShowPostPage />} />
               <Route path="/about-us" element={<AboutUsPage />} />
               <Route path="/" element={<PostsListPage />} />
+              <Route path="/user-profile" element={<UserProfile />} />
             </Routes>
           </div>
         </div>
