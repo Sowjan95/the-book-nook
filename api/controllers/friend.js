@@ -2,20 +2,46 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 const passport = require("../middlewares/authentication");
+const { user } = require("pg/lib/defaults");
 const { User, UserUser } = db;
 
 
 // get all friends
 router.get("/", passport.isAuthenticated(), async (req, res) => {
     const user = req.user;
-    const friends = await User.findAll({
-        where: {
-          id: user.id
-        },
-        include: "Friend"
-      });
+    // const friends = await User.findAll({
+    //     where: {
+    //       id: user.id
+    //     },
+    //     include: "Friend"
+    //   });
+    const friends = await user.getFriends();
+
+    if (!friends) {
+      return res.status(404).json({ message: "No friends not found" });
+    }
+
     res.json(friends);
 });
+
+
+// router.get('/friends', passport.isAuthenticated(), async (req, res) => {
+//   try {
+//     const user = await User.findOne({
+//       where: { id: req.user.id },
+//       include: [{
+//         model: User,
+//         as: 'Friends',
+//       }]
+//     });
+
+//     const friends = user.Friends;
+//     res.json(friends);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ error: 'Server error' });
+//   }
+// });
 
 
 //get friend by username
@@ -38,6 +64,59 @@ router.get("/", passport.isAuthenticated(), async (req, res) => {
 //     res.json(friendUser);
 // });
 
+// This only works if the user is also friends with you!
+router.get("/username/:username", passport.isAuthenticated(), async (req, res) => {
+
+  const { username } = req.params;
+  const user = req.user;
+
+  const friend = await User.findOne({
+    where: { username },
+    include: [
+      {
+        model: User,
+        as: "Friends",
+        through: { attributes: [] }, // Exclude join table fields
+        where: { id: user.id }
+      }
+    ]
+  });
+
+  if (!friend) {
+    return res.status(404).json({ message: "Friend not found" });
+  }
+
+  return res.json(friend);
+
+  // const {username} = req.params;
+  // const user = req.user;
+
+  // const friend = await User.findOne({
+  //   where: {
+  //     username: username,
+  //   },
+  //   include: [
+  //     {
+  //       model: User,
+  //       as: "Friends",
+  //       where: {
+  //         id: user.id
+  //       }
+  //     }
+  //   ]
+  // });
+  
+ 
+});
+
+// if (user && user.followers.length > 0) {
+//   const follower = user.followers[0];
+//   // Do something with the follower...
+// } else {
+//   // Follower not found
+// });
+
+
 
 // post a new friend
 router.post("/", passport.isAuthenticated(), async (req, res) => {
@@ -59,16 +138,27 @@ router.post("/", passport.isAuthenticated(), async (req, res) => {
   
 
 // delete a friend
-// router.delete("/:id", (req, res) => {
-//   const { id } = req.params;
-//   Friend.findByPk(id).then((friend) => {
-//     if (!friend) {
-//       return res.sendStatus(404);
-//     }
-//     friend.destroy();
-//     res.sendStatus(204);
-//   });
-// });
+router.delete("/:friendId", passport.isAuthenticated(), async (req, res) => {
+
+  const { friendId } = req.params;
+  const user = req.user;
+
+  try {
+    const friend = await User.findOne({ where: { id: friendId } });
+
+    if (!friend) {
+      return res.status(404).json({ message: "Friend not found" });
+    }
+
+    await user.removeFriends(friend);
+
+    res.json({ message: `Friend ${friendId} removed from user ${user.id}` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+
+});
 
 
 module.exports = router;
