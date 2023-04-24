@@ -39,7 +39,7 @@ function HomePage(props) {
     // get books user is currently reading
     async function getMyCurrentBooks() {
       try {
-        let response = await fetch("/api/my_book/Currently Reading");
+        let response = await fetch("/api/my_book/shelf/Currently Reading");
         let data = orderAscendingByStartedDate( await response.json());
         setMyCurrentBooks(data);
       } catch (error) {

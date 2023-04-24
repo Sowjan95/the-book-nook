@@ -10,7 +10,8 @@ import ProfileCard from "../components/ProfileCard";
 
 function UserProfile() {
   const [user, setUser] = useState();
-  const [myBooks, setMyBooks] = useState();
+  const [myFavoriteBooks, setMyFavoriteBooks] = useState();
+  const [myCurrentBooks, setMyCurrentBooks] = useState();
 //   const[update, setUpdate] = useState(true);
   //fetch data
   useEffect(() => {
@@ -23,23 +24,46 @@ function UserProfile() {
         console.error("Error fetching all user data", error);
       }
     }
-    async function getMyBooks() {
+
+    // get books user is currently reading
+    async function getMyCurrentBooks() {
       try {
-        let response = await fetch("/api/events/my_books");
-        let data = orderAscendingByDate( await response.json());
-        setMyBooks(data);
+        let response = await fetch("/api/my_book/shelf/Currently Reading");
+        let data = orderAscendingByStartedDate( await response.json());
+        setMyCurrentBooks(data);
       } catch (error) {
-        console.error("Error fetching all user books", error);
+        console.error("Error fetching all currently reading books", error);
       }
     }
-    function orderAscendingByDate(data){
+
+    // get books user is currently reading
+    async function getMyFavoriteBooks() {
+      try {
+        let response = await fetch("/api/my_book/favorites");
+        let data = orderAscendingByAddedDate( await response.json());
+        setMyFavoriteBooks(data);
+      } catch (error) {
+        console.error("Error fetching all favorite books", error);
+      }
+    }
+
+    function orderAscendingByAddedDate(data){
+      const copyData = []
+      .concat(data)
+      .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
+      return copyData;
+    }
+
+    function orderAscendingByStartedDate(data){
       const copyData = []
       .concat(data)
       .sort((a, b) => (a.date_started > b.date_started ? 1 : -1));
       return copyData;
     }
+
     getUser();
-    getMyBooks();
+    getMyCurrentBooks();
+    getMyFavoriteBooks();
 });
 //   }, [update]);
 
@@ -61,11 +85,23 @@ function UserProfile() {
         </Row>
       </Container>
       <br /> <br />
-      <h2 className="profileHeader title">Upcoming Events</h2>
+      <h2 className="profileHeader title">Currently Reading</h2>
       <Container>
-        {myBooks && (
-          <div className="event-cards">
-            {myBooks.map((event) => (
+        {myCurrentBooks && (
+          <div className="current-mybooks">
+            {myCurrentBooks.map((event) => (
+              <CardTemplate  key={event.id} props={event} loggedIn={true} />
+            ))
+            }
+          </div>
+        )}
+      </Container>
+      <br /> <br />
+      <h2 className="profileHeader title">Favorite Books</h2>
+      <Container>
+        {myFavoriteBooks && (
+          <div className="favorite-mybooks">
+            {myFavoriteBooks.map((event) => (
               <CardTemplate  key={event.id} props={event} loggedIn={true} />
             ))
             }
