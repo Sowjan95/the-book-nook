@@ -9,85 +9,75 @@ import Form from 'react-bootstrap/Form';
 function HomePage(props) {
   const[books, setBooks] = useState();
   const[myBooks, setMyBooks] = useState();
-//   const[parks, setParks] = useState();
-//   const[concerts, setConcerts] = useState();
-//   const[tours, setTours] = useState();
-//   const [date, setDate] = useState(new Date());
-//   const [sortByDate, setSortByDate] = useState(false);
-//   const [eventsByDate, setEventsByDate] = useState(null);
+  const[myCurrentBooks, setMyCurrentBooks] = useState();
 
   //fetch data
   useEffect(() => {
+
+    // get regular books
     async function getBooks() {
       try {
         let response = await fetch("/api/books/");
-        let data = orderAscendingByDate( await response.json());
+        let data = orderAscendingByAddedDate( await response.json());
         setBooks(data);
       } catch (error) {
         console.error("Error fetching all books", error);
       }
     }
+
+    // get some of user's recently added books
     async function getMyBooks() {
       try {
         let response = await fetch("/api/my_book/allmybooks");
-        let data = orderAscendingByDate( await response.json());
+        let data = orderAscendingByAddedDate( await response.json());
         setMyBooks(data);
       } catch (error) {
         console.error("Error fetching all user's books", error);
       }
     }
-    // get my book by shelf -> currently reading
+    
+    // get books user is currently reading
+    async function getMyCurrentBooks() {
+      try {
+        let response = await fetch("/api/my_book/Currently Reading");
+        let data = orderAscendingByStartedDate( await response.json());
+        setMyCurrentBooks(data);
+      } catch (error) {
+        console.error("Error fetching all currently reading books", error);
+      }
+    }
 
-
-    // async function getConcerts() {
-    //   try {
-    //     let response = await fetch("/api/events/Concerts & Shows");
-    //     let data = orderAscendingByDate( await response.json());
-    //     setConcerts(data);
-    //   } catch (error) {
-    //     console.error("Error fetching all concert events", error);
-    //   }
-    // }
-    // async function getFree() {
-    //   try {
-    //     let response = await fetch("/api/events/Free Events");
-    //     let data = orderAscendingByDate( await response.json());
-    //     setFree(data);
-    //   } catch (error) {
-    //     console.error("Error fetching all free events", error);
-    //   }
-    // }
-    // async function getTours() {
-    //   try {
-    //     let response = await fetch("/api/events/Attractions & Tours");
-    //     let data = orderAscendingByDate( await response.json());
-    //     setTours(data);
-    //   } catch (error) {
-    //     console.error("Error fetching all tour events", error);
-    //   }
-    // }
-    function orderAscendingByDate(data){
+    function orderAscendingByAddedDate(data){
       const copyData = []
       .concat(data)
-      .sort((a, b) => (a.date > b.date ? 1 : -1));
+      .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
       return copyData;
     }
+
+    function orderAscendingByStartedDate(data){
+      const copyData = []
+      .concat(data)
+      .sort((a, b) => (a.date_started > b.date_started ? 1 : -1));
+      return copyData;
+    }
+
     getBooks();
     getMyBooks();
+    getMyCurrentBooks();
   }, []);
 
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-//     try {
-//         let response = await fetch(`/api/events/date/${date}`);
-//         let data = await response.json();
-//         setEventsByDate(data);
-//         console.log(eventsByDate);
-//         setSortByDate(true);
-//     } catch (error) {
-//         console.error("Server error while creating new event", error);
-//     }
-//   };
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //       let response = await fetch(`/api/events/date/${date}`);
+  //       let data = await response.json();
+  //       setEventsByDate(data);
+  //       console.log(eventsByDate);
+  //       setSortByDate(true);
+  //   } catch (error) {
+  //       console.error("Server error while creating new event", error);
+  //   }
+  // };
   
 //   const clearFilter = async (event) => {
 //     event.preventDefault();
