@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 const passport = require("../middlewares/authentication");
-const { User } = db;
+const { User, UserUser } = db;
 
 
 // get all friends
@@ -21,11 +21,17 @@ router.get("/", passport.isAuthenticated(), async (req, res) => {
 //get friend by username
 // router.get("/username/:username", passport.isAuthenticated(), async (req, res) => {
 //     const user = req.user
-
 //     const {username}  = req.params;
-//     let friendUser = await User.findOne({
+//     const friend = await User.findOne({
+//       where: {
+//           username: username
+//       }
+//     });
+
+//     let friendUser = await UserUser.findOne({
 //         where:{
 //             id: user.id,
+//             FriendId: friend.id
 //         },
 //         include: "Friend"
 //     });
