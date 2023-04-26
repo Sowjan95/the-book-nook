@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from "react";
-import CardTemplate from "../components/CardTemplate";
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form'; 
+// import CardTemplate from "../components/CardTemplate";
+import SearchBar from "../components/SearchBar";
+// import Container from 'react-bootstrap/Container';
+// import Button from 'react-bootstrap/Button';
+// import Form from 'react-bootstrap/Form'; 
+// import { getToPathname } from "@remix-run/router";
 // import Row from 'react-bootstrap/Row';
 // import Col from 'react-bootstrap/Col';
 
 function HomePage(props) {
-  const[books, setBooks] = useState();
-  const[myBooks, setMyBooks] = useState();
-  const[myCurrentBooks, setMyCurrentBooks] = useState();
+  const[books, setBooks] = useState([]);
+  const[myBooks, setMyBooks] = useState([]);
+  const[myCurrentBooks, setMyCurrentBooks] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+
+  let homeView = () => {
+    return books.map((book) => {  // Extract "title" and "author"
+      return <li key={book.id}><b>{book.title}</b> by {book.author}</li>
+    });
+  }
 
   //fetch data
   useEffect(() => {
@@ -65,26 +74,23 @@ function HomePage(props) {
     getMyBooks();
     getMyCurrentBooks();
   }, []);
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //       let response = await fetch(`/api/events/date/${date}`);
-  //       let data = await response.json();
-  //       setEventsByDate(data);
-  //       console.log(eventsByDate);
-  //       setSortByDate(true);
-  //   } catch (error) {
-  //       console.error("Server error while creating new event", error);
-  //   }
-  // };
   
 //   const clearFilter = async (event) => {
 //     event.preventDefault();
 //     setSortByDate(false);
 //   }
 
-  return 
+  return (
+    <div>
+      <h1>Home</h1>
+      {homeView()}
+      
+      <div classname='App'>
+        <SearchBar books={books} />
+      </div>
+
+    </div>
+  );
 }
 
 export default HomePage;
