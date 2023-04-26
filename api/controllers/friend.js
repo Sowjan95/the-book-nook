@@ -9,16 +9,10 @@ const { User, UserUser } = db;
 // get all friends
 router.get("/", passport.isAuthenticated(), async (req, res) => {
     const user = req.user;
-    // const friends = await User.findAll({
-    //     where: {
-    //       id: user.id
-    //     },
-    //     include: "Friend"
-    //   });
     const friends = await user.getFriends();
 
     if (!friends) {
-      return res.status(404).json({ message: "No friends not found" });
+      return res.status(404).json({ message: "No friends found" });
     }
 
     res.json(friends);
@@ -43,27 +37,6 @@ router.get("/", passport.isAuthenticated(), async (req, res) => {
 //   }
 // });
 
-
-//get friend by username
-// router.get("/username/:username", passport.isAuthenticated(), async (req, res) => {
-//     const user = req.user
-//     const {username}  = req.params;
-//     const friend = await User.findOne({
-//       where: {
-//           username: username
-//       }
-//     });
-
-//     let friendUser = await UserUser.findOne({
-//         where:{
-//             id: user.id,
-//             FriendId: friend.id
-//         },
-//         include: "Friend"
-//     });
-//     res.json(friendUser);
-// });
-
 // This only works if the user is also friends with you!
 router.get("/username/:username", passport.isAuthenticated(), async (req, res) => {
 
@@ -86,36 +59,9 @@ router.get("/username/:username", passport.isAuthenticated(), async (req, res) =
     return res.status(404).json({ message: "Friend not found" });
   }
 
-  return res.json(friend);
-
-  // const {username} = req.params;
-  // const user = req.user;
-
-  // const friend = await User.findOne({
-  //   where: {
-  //     username: username,
-  //   },
-  //   include: [
-  //     {
-  //       model: User,
-  //       as: "Friends",
-  //       where: {
-  //         id: user.id
-  //       }
-  //     }
-  //   ]
-  // });
-  
+  return res.json(friend);  
  
 });
-
-// if (user && user.followers.length > 0) {
-//   const follower = user.followers[0];
-//   // Do something with the follower...
-// } else {
-//   // Follower not found
-// });
-
 
 
 // post a new friend
