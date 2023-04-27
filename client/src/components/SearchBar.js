@@ -21,23 +21,28 @@ const SearchBar = (props) => {
         console.log(searchInput);
         try {
 
+            // empty searchedBooks
             setSearchedBooks([]);
 
+            // fetch books by titile and author
             const titleBooksPromise = fetch(`/api/books/title/${searchInput}`)
                 .then(res => res.clone().json() || [])
             const authorBooksPromise = fetch(`/api/books/author/${searchInput}`)
                 .then(res => res.clone().json() || []);
 
+            // populate titleBooks and authorBooks with fetched data
             let [titleBooks, authorBooks] = await Promise.all([titleBooksPromise, authorBooksPromise]);
 
+
+            // make sure titleBooks is null and is an array
             if (!titleBooks) titleBooks = [];
-            else if (titleBooks.length === 1) titleBooks = [titleBooks];
+            else if (!titleBooks.length)
+                titleBooks = [titleBooks];
+            
+            // make sure authorBooks is not null
             if (!authorBooks) authorBooks = [];
-            else if (authorBooks.length === 1) authorBooks = [authorBooks];
 
-            console.log(titleBooks);
-            console.log(authorBooks);
-
+            // don't add empty arrays into searchedBooks
             if (titleBooks.length === 0 && authorBooks.length === 0) {
                 setSearchedBooks([]);
             } else if (titleBooks.length === 0) {
@@ -47,10 +52,7 @@ const SearchBar = (props) => {
             } else {
                 setSearchedBooks([...titleBooks, ...authorBooks]);
             }
-              
-            console.log(searchedBooks)
 
-            // return data;
         } catch (error) {
             console.error("Server error while getting searched books", error);
         }
