@@ -45,7 +45,7 @@ router.get("/author/:author", passport.isAuthenticated(), async (req, res) => {
   });
 
 // get all mybooks belonging to a shelf type
-router.get("/shelf/:shelf", passport.isAuthenticated(), async (req, res) => {
+router.get("/shelf/:type", passport.isAuthenticated(), async (req, res) => {
     const user = req.user;
     const {type}  = req.params;
     let shelf = await Shelf.findOne({
