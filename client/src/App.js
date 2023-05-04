@@ -33,16 +33,16 @@ function Navigation(props) {
               About Us
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/log-in">
-              Log In
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/user-profile">
-              Profile
-            </NavLink>
-          </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/log-in">
+                Log In
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/user-profile">
+                Profile
+              </NavLink>
+            </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/home">
               Home
@@ -63,8 +63,6 @@ function App() {
           <div className="row justify-content-center">
             <Routes>
               <Route path="/log-in" element={<LoginPage />} />
-              {/* <Route path="/" element={<HomePage />} />
-              <Route path="/user-profile" element={<UserProfile />} /> */}
               <Route path="/posts/new" element={<PostFormPage />} />
               <Route path="/posts/:id" element={<ShowPostPage />} />
               <Route path="/about-us" element={<AboutUsPage />} />

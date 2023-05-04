@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext.js";
+import { Navigate } from "react-router-dom";
 // import CardTemplate from "../components/CardTemplate";
 // import ProfileCard from "../components/ProfileCard";
 
@@ -14,6 +16,9 @@ function UserProfile() {
   const [myFavoriteBooks, setMyFavoriteBooks] = useState([]);
   const [myCurrentBooks, setMyCurrentBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const auth = useAuth();
+  const [success, setSuccess] = useState(false);
 
 
   useEffect(() => {
@@ -85,6 +90,20 @@ function UserProfile() {
     getMyFavoriteBooks();
   }, []);
 
+  const handleLogout = async (event) => {
+    event.preventDefault();
+    try {
+      await auth.signout();
+      console.log("logged out");
+      setSuccess(true);
+      
+    } catch (error) {
+      console.error("Server error while logging in", error);
+    }
+    
+  };
+  if (success) return <Navigate to="/" />;
+
   return (
 
     <div>
@@ -96,6 +115,11 @@ function UserProfile() {
         {user && (
           <h2>Name: {user.name} Email: {user.email}</h2>
         )}
+        <div className="d-grid gap-2 mt-3">
+          <button type="submit" className="btn text-black" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
         <img className="profileImage" 
           class="img-thumbnail"
           src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
