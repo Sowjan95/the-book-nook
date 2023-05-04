@@ -9,6 +9,22 @@ router.get("/", (req, res) => {
     Book.findAll({}).then((allBooks) => res.json(allBooks));
 });
 
+// get all books
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const book = await Book.findByPk(id);
+    if (!book) {
+      return res.sendStatus(404);
+    }
+    res.json(book);
+  } catch (error) {
+    console.error("Error fetching book", error);
+    res.sendStatus(500);
+  }
+});
+
+
 
 //get books by title 
 router.get("/title/:title", (req, res) => {

@@ -13,6 +13,7 @@ function UserProfile() {
   const [user, setUser] = useState();
   const [myFavoriteBooks, setMyFavoriteBooks] = useState([]);
   const [myCurrentBooks, setMyCurrentBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
 
   useEffect(() => {
@@ -39,7 +40,16 @@ function UserProfile() {
         currentBooksData.sort((a, b) =>
           a.date_started > b.date_started ? 1 : -1
         );
-        setMyCurrentBooks(currentBooksData);
+        // fetch associated NewBook model for each Book model
+        const currentBooks = await Promise.all(
+          currentBooksData.map(async (book) => {
+            const newBookResponse = await fetch(`/api/books/${book.BookId}`);
+            const newBookData = await newBookResponse.json();
+            return { ...book, title: newBookData.title, author: newBookData.author };
+          })
+        );
+        setMyCurrentBooks(currentBooks);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching all currently reading books", error);
       }
@@ -54,7 +64,16 @@ function UserProfile() {
         favoriteBooksData.sort((a, b) =>
           a.createdAt > b.createdAt ? 1 : -1
         );
-        setMyFavoriteBooks(favoriteBooksData);
+        // fetch associated NewBook model for each Book model
+        const favoriteBooks = await Promise.all(
+          favoriteBooksData.map(async (book) => {
+            const newBookResponse = await fetch(`/api/books/${book.BookId}`);
+            const newBookData = await newBookResponse.json();
+            return { ...book, title: newBookData.title, author: newBookData.author };
+          })
+        );
+        setMyFavoriteBooks(favoriteBooks);
+        console.log(myFavoriteBooks);
       } catch (error) {
         console.error("Error fetching all favorite books", error);
       }
@@ -88,7 +107,7 @@ function UserProfile() {
 
       <div>
        <h2 className="profileHeader title">Currently Reading</h2>
-         {myCurrentBooks && (
+         {myCurrentBooks.length > 0 && (
           <div className="current-mybooks">
             {myCurrentBooks.map((book) => (
               <tr key={book.id}>
@@ -99,11 +118,35 @@ function UserProfile() {
             }
           </div>
         )}
+        {/* {isLoading ? (
+          <p>Loading...</p>
+        ) : myCurrentBooks.length > 0 ? (
+          <div className="current-mybooks">
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Author</th>
+                </tr>
+              </thead>
+              <tbody>
+                {myCurrentBooks.map((book) => (
+                  <tr key={book.id}>
+                    <td>{book.title}</td>
+                    <td>{book.author}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p>No currently reading books found.</p>
+        )} */}
       </div>
 
       <div>
        <h2 className="profileHeader title">Favorite Books</h2>
-         {myFavoriteBooks && (
+         {myFavoriteBooks.length > 0 && (
           <div className="favorites-mybooks">
             {myFavoriteBooks.map((book) => (
               <tr key={book.id}>
@@ -115,6 +158,28 @@ function UserProfile() {
           </div>
         )}
       </div>
+
+{/* <div>
+  <h2 className="profileHeader title">Favorite Books</h2>
+  {myFavoriteBooks.length > 0 && (
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+        </tr>
+      </thead>
+      <tbody>
+        {myFavoriteBooks.map((book) => (
+          <tr key={book.id}>
+            <td>{book.title}</td>
+            <td>{book.author}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+</div> */}
     </div>
     
   );
