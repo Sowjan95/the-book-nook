@@ -23,51 +23,55 @@ function HomePage(props) {
   //fetch data
   useEffect(() => {
 
-    // get regular books
+    // fetch all books
+    // sort books in ascending order by date added
     async function getBooks() {
       try {
-        let response = await fetch("/api/books/");
-        let data = orderAscendingByAddedDate( await response.json());
-        setBooks(data);
+        const allBooksResponse = await fetch(
+          "/api/books/"
+        );
+        const allBooksData = await allBooksResponse.json();
+        allBooksData.sort((a, b) =>
+          a.createdAt > b.createdAt ? 1 : -1
+        );
+        setBooks(allBooksData);
       } catch (error) {
         console.error("Error fetching all books", error);
       }
     }
 
-    // get some of user's recently added books
+    // fetch user's my_books
+    // sort books in ascending order by date added
     async function getMyBooks() {
       try {
-        let response = await fetch("/api/my_book/allmybooks");
-        let data = orderAscendingByAddedDate( await response.json());
-        setMyBooks(data);
+        const allMyBooksResponse = await fetch(
+          "/api/my_book/allmybooks"
+        );
+        const allMyBooksData = await allMyBooksResponse.json();
+        allMyBooksData.sort((a, b) =>
+          a.createdAt > b.createdAt ? 1 : -1
+        );
+        setMyBooks(allMyBooksData);
       } catch (error) {
-        console.error("Error fetching all user's books", error);
+        console.error("Error fetching all my books", error);
       }
     }
-    
-    // get books user is currently reading
+
+    // fetch user's currently reading my_books
+    // sort books in ascending order by date_started
     async function getMyCurrentBooks() {
       try {
-        let response = await fetch("/api/my_book/shelf/Currently Reading");
-        let data = orderAscendingByStartedDate( await response.json());
-        setMyCurrentBooks(data);
+        const currentBooksResponse = await fetch(
+          "/api/my_book/shelf/Currently Reading"
+        );
+        const currentBooksData = await currentBooksResponse.json();
+        currentBooksData.sort((a, b) =>
+          a.date_started > b.date_started ? 1 : -1
+        );
+        setMyCurrentBooks(currentBooksData);
       } catch (error) {
         console.error("Error fetching all currently reading books", error);
       }
-    }
-
-    function orderAscendingByAddedDate(data){
-      const copyData = []
-      .concat(data)
-      .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
-      return copyData;
-    }
-
-    function orderAscendingByStartedDate(data){
-      const copyData = []
-      .concat(data)
-      .sort((a, b) => (a.date_started > b.date_started ? 1 : -1));
-      return copyData;
     }
 
     getBooks();
