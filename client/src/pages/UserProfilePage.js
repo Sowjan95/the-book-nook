@@ -1,122 +1,122 @@
 import React, { useState, useEffect } from "react";
 // import CardTemplate from "../components/CardTemplate";
+// import ProfileCard from "../components/ProfileCard";
+
 // import Container from 'react-bootstrap/Container';
 // import Row from 'react-bootstrap/Row';
-
 // import Col from 'react-bootstrap/Col';
 // import Image from 'react-bootstrap/Image'
-// import ProfileCard from "../components/ProfileCard";
 // import "../userprofile.css"
+
 
 function UserProfile() {
   const [user, setUser] = useState();
-  const [myFavoriteBooks, setMyFavoriteBooks] = useState();
-  const [myCurrentBooks, setMyCurrentBooks] = useState();
-  const[update, setUpdate] = useState(true);
-  //fetch data
+  const [myFavoriteBooks, setMyFavoriteBooks] = useState([]);
+  const [myCurrentBooks, setMyCurrentBooks] = useState([]);
+
+
   useEffect(() => {
+
+    // fetch user
     async function getUser() {
       try {
-        let response = await fetch("/api/auth/login");
-        let data = await response.json();
-        setUser(data);
+        const userResponse = await fetch("/api/auth/login");
+        const userData = await userResponse.json();
+        setUser(userData);
       } catch (error) {
         console.error("Error fetching all user data", error);
       }
     }
 
-    // get books user is currently reading
+    // fetch user's currently reading my_books
+    // sort books in ascending order by date_started
     async function getMyCurrentBooks() {
       try {
-        let response = await fetch("/api/my_book/shelf/Currently Reading");
-        let data = orderAscendingByStartedDate( await response.json());
-        setMyCurrentBooks(data);
+        const currentBooksResponse = await fetch(
+          "/api/my_book/shelf/Currently Reading"
+        );
+        const currentBooksData = await currentBooksResponse.json();
+        currentBooksData.sort((a, b) =>
+          a.date_started > b.date_started ? 1 : -1
+        );
+        setMyCurrentBooks(currentBooksData);
       } catch (error) {
         console.error("Error fetching all currently reading books", error);
       }
     }
 
-    // get books user is currently reading
+    // fetch user's favorite my_books
+    // sort books in ascending order by createdAt
     async function getMyFavoriteBooks() {
       try {
-        let response = await fetch("/api/my_book/favorites");
-        let data = orderAscendingByAddedDate( await response.json());
-        setMyFavoriteBooks(data);
+        const favoriteBooksResponse = await fetch("/api/my_book/favorites");
+        const favoriteBooksData = await favoriteBooksResponse.json();
+        favoriteBooksData.sort((a, b) =>
+          a.createdAt > b.createdAt ? 1 : -1
+        );
+        setMyFavoriteBooks(favoriteBooksData);
       } catch (error) {
         console.error("Error fetching all favorite books", error);
       }
     }
-
-    function orderAscendingByAddedDate(data){
-      const copyData = []
-      .concat(data)
-      .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
-      return copyData;
-    }
-
-    function orderAscendingByStartedDate(data){
-      const copyData = []
-      .concat(data)
-      .sort((a, b) => (a.date_started > b.date_started ? 1 : -1));
-      return copyData;
-    }
-
+    
+    // fetch all data
     getUser();
     getMyCurrentBooks();
     getMyFavoriteBooks();
-  }, [update]);
-
-//     getUser();
-//     // getMyCurrentBooks();
-//     // getMyFavoriteBooks();
-// });
-// //   }, [update]);
+  }, []);
 
   return (
-    <h1 className="profileHeader title">Welcome, {user ? `${user.username}` : "User"}!</h1>
-    // <div>
-    //   <h1 className="profileHeader title">Welcome, User!</h1>
-    //   <Container>
-    //     <Row>
-    //       <Col>
-    //         <Image className="profileImage" src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80" />
-    //       </Col>
 
-    //       <Col className= "placement-card">
-    //         {user && (
-    //           <ProfileCard name={user.username} email={user.email} />
-    //         )}
-    //       </Col>
-        
-    //     </Row>
-    //   </Container>
-    //   <br /> <br />
-    //   <h2 className="profileHeader title">Currently Reading</h2>
-    //   <Container>
-    //     {myCurrentBooks && (
-    //       <div className="current-mybooks">
-    //         {myCurrentBooks.map((event) => (
-    //           <CardTemplate  key={event.id} props={event} loggedIn={true} />
-    //         ))
-    //         }
-    //       </div>
-    //     )}
-    //   </Container>
-    //   <br /> <br />
-    //   <h2 className="profileHeader title">Favorite Books</h2>
-    //   <Container>
-    //     {myFavoriteBooks && (
-    //       <div className="favorite-mybooks">
-    //         {myFavoriteBooks.map((event) => (
-    //           <CardTemplate  key={event.id} props={event} loggedIn={true} />
-    //         ))
-    //         }
-    //       </div>
-    //     )}
-    //   </Container>
+    <div>
+      <h1 className="profileHeader title">
+        Welcome, {user ? user.username : "User"}!
+      </h1>
 
-    //   <br /><br />
-    // </div>
+      <div className= "placement-card">
+        {user && (
+          <h2>Name: {user.name} Email: {user.email}</h2>
+        )}
+        <img className="profileImage" 
+          class="img-thumbnail"
+          src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
+          alt="User Profile"
+        />
+      </div>
+       <br/>
+       <br/>
+
+      <div>
+       <h2 className="profileHeader title">Currently Reading</h2>
+         {myCurrentBooks && (
+          <div className="current-mybooks">
+            {myCurrentBooks.map((book) => (
+              <tr key={book.id}>
+                <td>{book.title}</td>
+                <td>{book.author}</td>
+              </tr>
+            ))
+            }
+          </div>
+        )}
+      </div>
+
+      <div>
+       <h2 className="profileHeader title">Favorite Books</h2>
+         {myFavoriteBooks && (
+          <div className="favorites-mybooks">
+            {myFavoriteBooks.map((book) => (
+              <tr key={book.id}>
+                <td>{book.title}</td>
+                <td>{book.author}</td>
+              </tr>
+            ))
+            }
+          </div>
+        )}
+      </div>
+    </div>
+    
   );
 }
 
