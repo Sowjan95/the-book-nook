@@ -32,7 +32,7 @@ router.post("/", passport.isAuthenticated(), async (req, res) => {
             id: bookId
         }
     });
-    Recommendation.create({ UserId: friend.id, BookId: book.id })
+    Recommendation.create({ UserId: friend.id, BookId: book.id, FriendId: user.id })
     .then((newRec) => {
       (req.user).addRecommendation(newRec);
       res.status(201).json(newRec);

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Recommendation.associate = (models) => {
-    models.Recommendation.belongsTo(models.User); // Association with recommender // id
+    models.Recommendation.belongsTo(models.User, {foreignKey: "FriendId"}); // Association with recommender // id
     Recommendation.User = models.Recommendation.belongsTo(models.User); // Association with who you're recommending to // UserId
     models.Recommendation.belongsTo(models.Book); // BookId
   };

@@ -84,7 +84,7 @@ function MyBooks(props) {
         <h1>My Books</h1>
         <div className="container-fluid text-center">
             <div className="row justify-content-center">
-                <div classname='App'>
+                <div className='App'>
                 <nav className="navbar navbar-expand-sm navbar-dark shadow mb-3">
                     <div>
                         <button onClick={() => setSelectedOption('Read')}>

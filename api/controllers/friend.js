@@ -37,6 +37,29 @@ router.get("/", passport.isAuthenticated(), async (req, res) => {
 //   }
 // });
 
+router.get("/:friendId", passport.isAuthenticated(), async (req, res) => {
+
+  const { friendId } = req.params;
+  const user = req.user;
+
+  const friend = await User.findOne({
+    where: { id: friendId },
+    include: [
+      {
+        model: User,
+        as: "Friends",
+        through: { attributes: [] }, // Exclude join table fields
+        where: { id: user.id }
+      }
+    ]
+  });
+
+  if (!friend) {
+    return res.status(404).json({ message: "Friend not found" });
+  }
+  return res.json(friend);  
+});
+
 // This only works if the user is also friends with you!
 router.get("/username/:username", passport.isAuthenticated(), async (req, res) => {
 

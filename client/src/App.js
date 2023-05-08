@@ -12,6 +12,7 @@ import UserProfile from "./pages/UserProfilePage";
 import HomePage from "./pages/HomePage"
 import MyBooksPage from "./pages/MyBooksPage"
 import ShowBookPage from "./pages/ShowBookPage";
+import CommunityPage from "./pages/CommunityPage";
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -55,6 +56,11 @@ function Navigation(props) {
               My Books
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/community">
+              Community
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
@@ -78,6 +84,7 @@ function App() {
               <Route path="/user-profile" element={<UserProfile />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/mybooks" element={<MyBooksPage />} />
+              <Route path="/community" element={<CommunityPage />} />
             </Routes>
           </div>
         </div>
