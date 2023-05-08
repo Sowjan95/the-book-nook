@@ -1,5 +1,9 @@
+
 import React from "react";
 import { BrowserRouter, Routes, Route, Link, NavLink } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+
+import LoginPage from "./pages/LoginPage";
 import PostsListPage from "./pages/PostsListPage";
 import PostFormPage from "./pages/PostFormPage";
 import ShowPostPage from "./pages/ShowPostPage";
@@ -25,6 +29,11 @@ function Navigation(props) {
               About Us
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/log-in">
+              Log In
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
@@ -33,19 +42,25 @@ function Navigation(props) {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navigation />
-      <div className="container-xl text-center">
-        <div className="row justify-content-center">
-          <Routes>
-            <Route path="/posts/new" element={<PostFormPage />} />
-            <Route path="/posts/:id" element={<ShowPostPage />} />
-            <Route path="/about-us" element={<AboutUsPage />} />
-            <Route path="/" element={<PostsListPage />} />
-          </Routes>
+    <AuthProvider>
+      <BrowserRouter>
+        <Navigation />
+        <div className="container-xl text-center">
+          <div className="row justify-content-center">
+            <Routes>
+              <Route path="/log-in" element={<LoginPage />} />
+              {/* <Route path="/" element={<HomePage />} />
+              <Route path="/user-profile" element={<UserProfile />} /> */}
+              <Route path="/posts/new" element={<PostFormPage />} />
+              <Route path="/posts/:id" element={<ShowPostPage />} />
+              <Route path="/about-us" element={<AboutUsPage />} />
+              <Route path="/" element={<PostsListPage />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
+    
   );
 }
 
