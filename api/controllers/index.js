@@ -16,9 +16,7 @@ const recController = require("./recommend.js");
 // will be prefixes to all routes defined inside the controller
 router.use("/micro_posts", microPostsController);
 router.use("/auth", authController);
-router.use("/my_books", myBooksController);
-router.use("/friends", friendsController);
-router.use("/book", bookController);
+router.use("/books", bookController);
 router.use("/my_book", myBookController);
 router.use("/shelf", shelfController);
 router.use("/friend", friendController);

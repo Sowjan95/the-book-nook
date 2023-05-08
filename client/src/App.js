@@ -8,6 +8,10 @@ import PostsListPage from "./pages/PostsListPage";
 import PostFormPage from "./pages/PostFormPage";
 import ShowPostPage from "./pages/ShowPostPage";
 import AboutUsPage from "./pages/AboutUsPage";
+import UserProfile from "./pages/UserProfilePage";
+import HomePage from "./pages/HomePage"
+
+import "bootstrap/dist/css/bootstrap.min.css"
 
 import "./App.css";
 
@@ -29,9 +33,19 @@ function Navigation(props) {
               About Us
             </NavLink>
           </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/log-in">
+                Log In
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/user-profile">
+                Profile
+              </NavLink>
+            </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/log-in">
-              Log In
+            <NavLink className="nav-link" to="/home">
+              Home
             </NavLink>
           </li>
         </ul>
@@ -49,12 +63,12 @@ function App() {
           <div className="row justify-content-center">
             <Routes>
               <Route path="/log-in" element={<LoginPage />} />
-              {/* <Route path="/" element={<HomePage />} />
-              <Route path="/user-profile" element={<UserProfile />} /> */}
               <Route path="/posts/new" element={<PostFormPage />} />
               <Route path="/posts/:id" element={<ShowPostPage />} />
               <Route path="/about-us" element={<AboutUsPage />} />
               <Route path="/" element={<PostsListPage />} />
+              <Route path="/user-profile" element={<UserProfile />} />
+              <Route path="/home" element={<HomePage />} />
             </Routes>
           </div>
         </div>

@@ -44,8 +44,8 @@ router.get("/author/:author", passport.isAuthenticated(), async (req, res) => {
     }).then((allMyBooks) => res.json(allMyBooks));
   });
 
-// get all mybooks belonging to a category type
-router.get("/:type", passport.isAuthenticated(), async (req, res) => {
+// get all mybooks belonging to a shelf type
+router.get("/shelf/:type", passport.isAuthenticated(), async (req, res) => {
     const user = req.user;
     const {type}  = req.params;
     let shelf = await Shelf.findOne({
@@ -61,6 +61,15 @@ router.get("/:type", passport.isAuthenticated(), async (req, res) => {
       }).then((allMyBooks) => res.json(allMyBooks));
 });
 
+// get all liked mybooks
+router.get("/favorites", passport.isAuthenticated(), async (req, res) => {
+  const user = req.user;
+  MyBook.findAll({
+      where:{
+        like: true
+      }
+    }).then((allMyBooks) => res.json(allMyBooks));
+});
 
 // post a new mybook
 router.post("/", passport.isAuthenticated(),  async (req, res) => {

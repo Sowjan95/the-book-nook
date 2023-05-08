@@ -6,6 +6,7 @@ const path = require("path");
 const db = require("./models");
 const app = express();
 const PORT = process.env.PORT;
+const { Shelf } = db;
 
 // this lets us parse 'application/json' content in http requests
 app.use(express.json());
@@ -46,6 +47,22 @@ db.sequelize.sync({ force: false });
 // start up the server
 if (PORT) {
   app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+  addShelves();
 } else {
   console.log("===== ERROR ====\nCREATE A .env FILE!\n===== /ERROR ====");
+}
+
+async function addShelves(){
+  const result = await (Shelf.findAll({
+    attributes: ['type']
+  }))
+  if (result.length < 5) {
+      Shelf.destroy({
+        where: {},
+      });
+      Shelf.create({type: 'Want to Read'});
+      Shelf.create({type: 'Read'});
+      Shelf.create({type: 'Currently Reading'});
+      return;
+  }
 }
