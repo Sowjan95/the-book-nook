@@ -46,7 +46,13 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     // User.Friend = models.User.belongsToMany(models.Friend, { through: "UserFriends" });
     User.MyBook = models.User.belongsToMany(models.MyBook, { through: "UserMyBook" });
-    // User.Friend = models.User.belongsToMany(models.Friend, { through: "UserFriend" });
+
+    User.belongsToMany(User, { as: "Friends", through: "UserFriends", foreignKey: "userId"}); // FriendId
+
+    User.belongsToMany(models.Recommendation, { through: "UserRecommendation"}); // what user recommended
+    
+    // User.belongsToMany(User, { as: 'following', through: 'UserUser', foreignKey: 'userId' });
+
   };
 
   User.beforeSave((user, options) => {
