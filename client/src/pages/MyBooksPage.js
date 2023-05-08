@@ -2,13 +2,6 @@ import React, { useState, useEffect } from "react";
 import ReadBookView from "../components/ReadBookView";
 import CurrentBookView from "../components/CurrentBookView";
 import ToReadBookView from "../components/ToReadBookView";
-// import CardTemplate from "../components/CardTemplate";
-// import Container from 'react-bootstrap/Container';
-// import Button from 'react-bootstrap/Button';
-// import Form from 'react-bootstrap/Form'; 
-// import { getToPathname } from "@remix-run/router";
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
 
 
 function MyBooks(props) {
