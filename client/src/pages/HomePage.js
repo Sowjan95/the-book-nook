@@ -1,24 +1,12 @@
 import React, { useState, useEffect } from "react";
 // import CardTemplate from "../components/CardTemplate";
 import SearchBar from "../components/SearchBar";
-// import Container from 'react-bootstrap/Container';
-// import Button from 'react-bootstrap/Button';
-// import Form from 'react-bootstrap/Form'; 
-// import { getToPathname } from "@remix-run/router";
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
+import "../App.css"
 
 function HomePage(props) {
   const[books, setBooks] = useState([]);
   const[myBooks, setMyBooks] = useState([]);
   const[myCurrentBooks, setMyCurrentBooks] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
-
-  let homeView = () => {
-    return books.map((book) => {  // Extract "title" and "author"
-      return <li key={book.id}><b>{book.title}</b> by {book.author}</li>
-    });
-  }
 
   //fetch data
   useEffect(() => {
@@ -78,16 +66,10 @@ function HomePage(props) {
     getMyBooks();
     getMyCurrentBooks();
   }, []);
-  
-//   const clearFilter = async (event) => {
-//     event.preventDefault();
-//     setSortByDate(false);
-//   }
 
   return (
     <div>
       <h1>Home</h1>
-      {/* {homeView()} */}
       
       <div classname='App'>
         <SearchBar books={books} />
