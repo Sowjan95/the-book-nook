@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext.js";
 import { Navigate } from "react-router-dom";
 // import CardTemplate from "../components/CardTemplate";
-// import ProfileCard from "../components/ProfileCard";
+import ProfileCard from "../components/ProfileCard";
 
 // import Container from 'react-bootstrap/Container';
 // import Row from 'react-bootstrap/Row';

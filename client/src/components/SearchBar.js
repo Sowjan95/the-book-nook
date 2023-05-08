@@ -61,6 +61,7 @@ const SearchBar = (props) => {
 
     return (
     <div>
+        <h4>Search for a book by title or author:</h4>
         <form onSubmit={handleSubmit}>
             <input
                 type="search"
@@ -71,22 +72,24 @@ const SearchBar = (props) => {
             <button type="submit">Search</button>
         </form>
         
+        {searchedBooks.length > 0 && (
         <table>
-        <thead>
-          <tr>
-            <th>Book</th>
-            <th>Title</th>
-          </tr>
-        </thead>
-        <tbody>
-          {searchedBooks && searchedBooks.map((book) => (
-            <tr key={book.id}>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                </tr>
+            </thead>
+            <tbody>
+                {searchedBooks.map((book) => (
+                    <tr key={book.id}>
+                        <td>{book.title}</td>
+                        <td>{book.author}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    )}
     </div>
     )
 
