@@ -47,7 +47,6 @@ module.exports = (sequelize, DataTypes) => {
     // User.Friend = models.User.belongsToMany(models.Friend, { through: "UserFriends" });
     User.MyBook = models.User.belongsToMany(models.MyBook, { through: "UserMyBook" });
     // User.Friend = models.User.belongsToMany(models.Friend, { through: "UserFriend" });
-
   };
 
   User.beforeSave((user, options) => {
