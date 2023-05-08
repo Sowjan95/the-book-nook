@@ -47,22 +47,22 @@ db.sequelize.sync({ force: false });
 // start up the server
 if (PORT) {
   app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-  addShelves();
+  // addShelves();
 } else {
   console.log("===== ERROR ====\nCREATE A .env FILE!\n===== /ERROR ====");
 }
 
-async function addShelves(){
-  const result = await (Shelf.findAll({
-    attributes: ['type']
-  }))
-  if (result.length < 5) {
-      Shelf.destroy({
-        where: {},
-      });
-      Shelf.create({type: 'Want to Read'});
-      Shelf.create({type: 'Read'});
-      Shelf.create({type: 'Currently Reading'});
-      return;
-  }
-}
+// async function addShelves(){
+//   const result = await (Shelf.findAll({
+//     attributes: ['type']
+//   }))
+//   if (result.length < 5) {
+//       Shelf.destroy({
+//         where: {},
+//       });
+//       Shelf.create({type: 'Want to Read'});
+//       Shelf.create({type: 'Read'});
+//       Shelf.create({type: 'Currently Reading'});
+//       return;
+//   }
+// }

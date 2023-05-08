@@ -10,6 +10,8 @@ import ShowPostPage from "./pages/ShowPostPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import UserProfile from "./pages/UserProfilePage";
 import HomePage from "./pages/HomePage"
+import MyBooksPage from "./pages/MyBooksPage"
+import ShowBookPage from "./pages/ShowBookPage";
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -48,6 +50,11 @@ function Navigation(props) {
               Home
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/mybooks">
+              My Books
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
@@ -65,10 +72,12 @@ function App() {
               <Route path="/log-in" element={<LoginPage />} />
               <Route path="/posts/new" element={<PostFormPage />} />
               <Route path="/posts/:id" element={<ShowPostPage />} />
+              <Route path="/book/:id" element={<ShowBookPage />} />
               <Route path="/about-us" element={<AboutUsPage />} />
               <Route path="/" element={<PostsListPage />} />
               <Route path="/user-profile" element={<UserProfile />} />
               <Route path="/home" element={<HomePage />} />
+              <Route path="/mybooks" element={<MyBooksPage />} />
             </Routes>
           </div>
         </div>
