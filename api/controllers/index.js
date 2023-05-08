@@ -4,6 +4,7 @@ const authController = require("./auth.js");
 
 // Load each controller
 const microPostsController = require("./microPosts.js");
+const friendsController = require("./friends.js")
 const bookController = require("./book.js");
 const myBookController = require("./myBook.js");
 const shelfController = require("./shelf.js");
@@ -12,9 +13,9 @@ const shelfController = require("./shelf.js");
 // will be prefixes to all routes defined inside the controller
 router.use("/micro_posts", microPostsController);
 router.use("/auth", authController);
+router.use("/friends", friendsController);
 router.use("/book", bookController);
 router.use("/my_book", myBookController);
 router.use("/shelf", shelfController);
-
 
 module.exports = router;
