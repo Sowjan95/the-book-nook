@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 function ReadBookView(props) {
     const[books, setBooks] = useState([]);
 
-    // fetch user's currently reading my_books
-    // sort books in ascending order by date_started
+    // fetch book data of user's read my_books
     useEffect(() => {
         async function getBookData(myBookData) {
           try {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReadBookView from "../components/ReadBookView";
 import CurrentBookView from "../components/CurrentBookView";
+import ToReadBookView from "../components/ToReadBookView";
 // import CardTemplate from "../components/CardTemplate";
 // import Container from 'react-bootstrap/Container';
 // import Button from 'react-bootstrap/Button';
@@ -9,11 +10,12 @@ import CurrentBookView from "../components/CurrentBookView";
 // import Row from 'react-bootstrap/Row';
 // import Col from 'react-bootstrap/Col';
 
+
 function MyBooks(props) {
-  const[books, setBooks] = useState([]);
   const[myCurrentBooks, setMyCurrentBooks] = useState([]);
   const[myReadBooks, setMyReadBooks] = useState([]);
   const[myToReadBooks, setMyToReadBooks] = useState([]);
+  const [selectedOption, setSelectedOption] = useState('Read');
 
   //fetch data
   useEffect(() => {
@@ -75,16 +77,36 @@ function MyBooks(props) {
     getMyCurrentBooks();
   }, []);
 
+  let selectedComponent;
+  if (selectedOption === 'Read') {
+    selectedComponent = <ReadBookView readBooks={myReadBooks} />;
+  } else if (selectedOption === 'Want to Read') {
+    selectedComponent = <ToReadBookView readBooks={myToReadBooks} />;
+  } else {
+    selectedComponent = <CurrentBookView readBooks={myCurrentBooks} />;
+  }
+
     return (
     <div>
         <h1>My Books</h1>
         <div className="container-fluid text-center">
             <div className="row justify-content-center">
                 <div classname='App'>
-                    <ReadBookView readBooks={myReadBooks} />
-                    <CurrentBookView readBooks={myCurrentBooks} />
+                <nav className="navbar navbar-expand-sm navbar-dark shadow mb-3">
+                    <div>
+                        <button onClick={() => setSelectedOption('Read')}>
+                            Read
+                        </button>
+                        <button onClick={() => setSelectedOption('Want to Read')}>
+                            Want to Read
+                        </button>
+                        <button onClick={() => setSelectedOption('Currently Reading')}>
+                            Currently Reading
+                        </button>
+                    </div>
+                    </nav>
+                    {selectedComponent}
                 </div>
-                {/* {homeView()} */}
             </div>
         </div>
     </div>

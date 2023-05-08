@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function CurrentBookView(props) {
+function ToReadBookView(props) {
     const[books, setBooks] = useState([]);
 
-    // fetch book data of user's currently reading my_books
+    // fetch book data of user's want to read my_books
     useEffect(() => {
         async function getBookData(myBookData) {
           try {
@@ -17,7 +17,7 @@ function CurrentBookView(props) {
             );
             setBooks(bookData);
           } catch (error) {
-            console.error("Error fetching all read book data", error);
+            console.error("Error fetching all want to read book data", error);
           }
         }
     
@@ -34,9 +34,8 @@ function CurrentBookView(props) {
                     <div key={book.id}>
                         <Link to={"/book/" + book.BookId}><h5 className="bookLink">{book.title}</h5></Link>
                         <p>{book.author}</p>
-                        <div className="card-footer small text-muted d-flex justify-content-between">
-                            <div>Pages Read: {book.pages_read}</div>
-                            <div>Date Started: {new Date(book.date_ended).toLocaleDateString("en-US",
+                        <div className="card-footer small text-muted">
+                            <div className="text-end">Date Added: {new Date(book.createdAt).toLocaleDateString("en-US",
                             {
                                 month: "long",
                                 day: "numeric",
@@ -54,4 +53,4 @@ function CurrentBookView(props) {
     );
 }
 
-export default CurrentBookView;
+export default ToReadBookView;
