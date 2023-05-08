@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 
 function Community(props) {
@@ -99,7 +100,8 @@ function Community(props) {
                     <tbody>
                         {myRecs.map((rec) => (
                             <tr key={rec.id}>
-                                <td>{rec.title}</td>
+                                <Link to={"/book/" + rec.BookId}><td className="bookLink">{rec.title}</td></Link>
+                                {/* <td>{rec.title}</td> */}
                                 <td>{rec.friend}</td>
                             </tr>
                         ))}
