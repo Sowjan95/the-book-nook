@@ -6,20 +6,26 @@ module.exports = (sequelize, DataTypes) => {
 
   MyBook.init(
     {
-      title: {
+       rating: {
+        type: DataTypes.INTEGER,
+       },
+       review: {
         type: DataTypes.STRING,
-        validate: {
-          len: [3, 250],
-          notEmpty: true,
-        },
-      },
-      author: {
-        type: DataTypes.STRING,
-        validate: {
-          len: [3, 250],
-          notEmpty: true,
-        },
-      },
+       },
+       like: {
+        type: DataTypes.BOOLEAN,
+       },
+       pages_read: {
+        type: DataTypes.INTEGER,
+       },
+       date_started: {
+        type: DataTypes.DATEONLY,
+        validate: { isDate: true },
+       },
+       date_ended: {
+        type: DataTypes.DATEONLY,
+        validate: { isDate: true },
+       }
     },
     {
       sequelize,
@@ -28,9 +34,9 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   MyBook.associate = (models) => {
-    // associations can be defined here
-    // MyBook.User = models.MyBook.belongsTo(models.User);
-    // models.MyBook.belongsTo(models.Book); // MyBook taken from Book api
+    models.MyBook.belongsTo(models.Book);
+    MyBook.User = models.MyBook.belongsTo(models.User);
+    models.MyBook.belongsTo(models.Shelf);
   };
 
   return MyBook;
