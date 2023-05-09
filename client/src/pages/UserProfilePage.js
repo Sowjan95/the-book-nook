@@ -96,6 +96,7 @@ function UserProfile() {
       await auth.signout();
       console.log("logged out");
       setSuccess(true);
+      window.location.reload(); // refresh the page
       
     } catch (error) {
       console.error("Server error while logging in", error);

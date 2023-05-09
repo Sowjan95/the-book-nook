@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function CardTemplate({props, loggedIn, onAddToShelf }) {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+
+    // fetch user
+    async function getUser() {
+      try {
+        const userResponse = await fetch("/api/auth/login");
+        const userData = await userResponse.json();
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching all user data", error);
+      }
+    }
+    
+    getUser();
+  }, []);
   
   return (
     <div className="container-fluid text-center">
@@ -12,9 +29,11 @@ function CardTemplate({props, loggedIn, onAddToShelf }) {
               <h2>{props.title}</h2>
               <h4>{props.author}</h4>
               <p>Pages: {props.pages}</p>
-              <button className="btn btn-success" type="button" onClick={onAddToShelf}>
-                Add to Shelf
-              </button>
+              {user && (
+                <button className="btn btn-success" type="button" onClick={onAddToShelf}>
+                  Add to Shelf
+                </button>
+              )}
             </div>
           </div>
         </div>

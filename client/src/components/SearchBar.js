@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const SearchBar = (props) => {
 
@@ -87,7 +88,7 @@ const SearchBar = (props) => {
             <tbody>
                 {searchedBooks.map((book) => (
                     <tr key={book.id}>
-                        <td>{book.title}</td>
+                        <Link to={"/book/" + book.id}><td className="bookLink">{book.title}</td></Link>
                         <td>{book.author}</td>
                     </tr>
                 ))}

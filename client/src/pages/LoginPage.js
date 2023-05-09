@@ -37,6 +37,7 @@ function  LoginPage(props) {
       if (response.ok) {
         console.log("signed up");
         setSuccess(true);
+        window.location.reload(); // refresh the page
       } 
     } catch (error) {
       console.error("Server error while creating a new user", error);
@@ -50,6 +51,7 @@ function  LoginPage(props) {
       await auth.authenticate(email, password);
       console.log("logged in");
       setSuccess(true);
+      window.location.reload(); // refresh the page
       
     } catch (error) {
       console.error("Server error while logging in", error);

@@ -46,12 +46,6 @@ function Community(props) {
                   const newBookData = await newBookResponse.json();
                   const friendData = await friendResponse.json();
                   return { ...book, title: newBookData.title, author: newBookData.author, friend: friendData.username };
-
-            //   const newBookResponse = await fetch(`/api/books/${book.BookId}`);
-            //   const friendsResponse = await fetch(`/api/friend/${book.UserId}`)
-            //   const newBookData = await newBookResponse.json();
-            //   const friendData = await friendsResponse.json();
-            //   return { ...book, title: newBookData.title, author: newBookData.author, friend: friendData.username };
             })
           );
           setMyRecs(bookData);
@@ -62,9 +56,6 @@ function Community(props) {
 
     getMyFriends();
     getMyRecs();
-    // getRecBookData(myRecs)
-    // console.log(myFriends);
-    console.log(myRecs);
   }, []);
 
     return (
@@ -101,7 +92,6 @@ function Community(props) {
                         {myRecs.map((rec) => (
                             <tr key={rec.id}>
                                 <Link to={"/book/" + rec.BookId}><td className="bookLink">{rec.title}</td></Link>
-                                {/* <td>{rec.title}</td> */}
                                 <td>{rec.friend}</td>
                             </tr>
                         ))}

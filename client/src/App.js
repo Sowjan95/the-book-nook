@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, NavLink } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -20,6 +20,24 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css";
 
 function Navigation(props) {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+
+    async function getUser() {
+      try {
+        const timestamp = new Date().getTime(); // generate a unique timestamp
+        const userResponse = await fetch(`/api/auth/login?_=${timestamp}`);
+        const userData = await userResponse.json();
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching all user data", error);
+      }
+    }
+    
+    getUser();
+  }, []);
+
   return (
     <nav className="navbar navbar-expand-sm navbar-dark bg-dark shadow mb-3">
       <div className="container-fluid">
@@ -42,26 +60,32 @@ function Navigation(props) {
                 Log In
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/user-profile">
-                Profile
-              </NavLink>
-            </li>
+            {user && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/user-profile">
+                  Profile
+                </NavLink>
+              </li>
+            )}
           <li className="nav-item">
             <NavLink className="nav-link" to="/home">
               Home
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/mybooks">
-              My Books
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/community">
-              Community
-            </NavLink>
-          </li>
+          {user && (
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/mybooks">
+                My Books
+              </NavLink>
+            </li>
+          )}
+          {user && (
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/community">
+                Community
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
@@ -69,6 +93,7 @@ function Navigation(props) {
 }
 
 function App() {
+
   return (
     <AuthProvider>
       <BrowserRouter>
