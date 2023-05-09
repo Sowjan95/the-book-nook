@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext.js";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 function UserProfile() {
@@ -8,6 +8,7 @@ function UserProfile() {
   const [myFavoriteBooks, setMyFavoriteBooks] = useState([]);
   const [myCurrentBooks, setMyCurrentBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const auth = useAuth();
   const [success, setSuccess] = useState(false);
@@ -86,15 +87,19 @@ function UserProfile() {
     try {
       await auth.signout();
       console.log("logged out");
-      setSuccess(true);
-      window.location.reload(); // refresh the page
+      // setSuccess(true);
+      window.location.replace('/');
       
     } catch (error) {
       console.error("Server error while logging in", error);
     }
-    
   };
-  if (success) return <Navigate to="/" />;
+
+  const handleLogin = async (event) => {
+    navigate("/log-in");
+  };
+
+  // if (success) return <Navigate to="/" />;
 
   return (
 
@@ -108,9 +113,16 @@ function UserProfile() {
           <h2>Name: {user.name} Email: {user.email}</h2>
         )}
         <div className="d-grid gap-2 mt-3">
-          <button type="submit" className="btn text-black" onClick={handleLogout}>
-            Logout
-          </button>
+          {user && 
+            <button type="submit" className="btn text-black" onClick={handleLogout}>
+              Logout
+            </button>
+          }
+          {!user &&
+            <button type="submit" className="btn text-black" onClick={handleLogin}>
+              Login
+            </button>
+          }
         </div>
         <img className="profileImage" 
           class="img-thumbnail"
