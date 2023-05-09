@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-// import ErrorAlert from "../components/ErrorAlert";
-// import ReadBookView from "../components/ReadBookView";
+import ErrorAlert from "../components/ErrorAlert";
 
 function ReadForm(props) {
   const [success, setSuccess] = useState(false);
@@ -55,10 +54,11 @@ function ReadForm(props) {
     }
   };
 
-  if (success) return <Navigate to="/" />;
+  if (success) return <Navigate to="/mybooks" />;
 
   return (
     <div className="col-md-8 col-lg-7 mx-auto">
+        {error && <ErrorAlert details={"Failed to save the content"} />}
         <h4>Add Book to Read Shelf</h4>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
@@ -124,9 +124,9 @@ function ToReadForm(props) {
     submitForm();
   }, [props.title, props.user.id]);
 
-  if (success) return <Navigate to="/" />;
+  if (success) return <Navigate to="/mybooks" />;
 
-  return null;
+  return (error && <ErrorAlert details={"Failed to save the content"} />);
 
 }
 
@@ -176,10 +176,11 @@ function CurrentlyReadingForm(props) {
     }
   };
 
-  if (success) return <Navigate to="/" />;
+  if (success) return <Navigate to="/mybooks" />;
 
   return (
     <div className="col-md-8 col-lg-7 mx-auto">
+        {error && <ErrorAlert details={"Failed to save the content"} />}
         <h4>Add Book to Read Shelf</h4>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
