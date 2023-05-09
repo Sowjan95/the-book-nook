@@ -36,7 +36,7 @@ function CurrentBookView(props) {
                         <p>{book.author}</p>
                         <div className="card-footer small text-muted d-flex justify-content-between">
                             <div>Pages Read: {book.pages_read}</div>
-                            <div>Date Started: {new Date(book.date_ended).toLocaleDateString("en-US",
+                            <div>Date Started: {new Date(book.date_started).toLocaleDateString("en-US",
                             {
                                 month: "long",
                                 day: "numeric",
