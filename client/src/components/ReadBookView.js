@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 function ReadBookView(props) {
     const[books, setBooks] = useState([]);
@@ -23,6 +25,14 @@ function ReadBookView(props) {
         getBookData(props.readBooks);
       }, [props.readBooks]);
 
+      const renderStars = (rating) => {
+        const stars = [];
+        for (let i = 0; i < rating; i++) {
+          stars.push(<FontAwesomeIcon key={i} icon={faStar} color="#ffc107" />);
+        }
+        return stars;
+      };
+
     return (
         <div className="container-fluid text-center">
         <div className="row justify-content-center">
@@ -34,9 +44,9 @@ function ReadBookView(props) {
                         <Link to={"/book/" + book.BookId}><h5 className="bookLink">{book.title}</h5></Link>
                         <p>{book.author}</p>
                         <p>Review: {book.review}</p>
-                        <div>{book.like && <div>&#10084;&#65039;</div>}</div>
+                        <div>{book.like && <div><FontAwesomeIcon icon={faHeart} style={{ color: '#009E60' }}/></div>}</div>
                         <div className="card-footer small text-muted d-flex justify-content-between">
-                            <div>Rating: {book.rating}</div>
+                            <div>Rating: {renderStars(book.rating)}</div>
                             <div>Date Finished: {new Date(book.date_ended).toLocaleDateString("en-US",
                             {
                                 month: "long",
