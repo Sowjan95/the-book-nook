@@ -55,18 +55,20 @@ function Navigation(props) {
               About Us
             </NavLink>
           </li>
+          {!user && (
             <li className="nav-item">
               <NavLink className="nav-link" to="/log-in">
                 Log In
               </NavLink>
             </li>
-            {user && (
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/user-profile">
-                  Profile
-                </NavLink>
-              </li>
-            )}
+          )}
+          {user && (
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/user-profile">
+                Profile
+              </NavLink>
+            </li>
+          )}
           <li className="nav-item">
             <NavLink className="nav-link" to="/home">
               Home
