@@ -11,14 +11,15 @@ function ShelfFormCard({ bookProps }) {
   }
 
   return (
-    <div className="col-10 col-md-8 col-lg-7">
-      <div className="input-group">
+    <div className="col-10 col-md-8 col-lg-7 container-fluid text-center">
+      <div className="input-group justify-content-center">
+        <h4>Choose a shelf for this book:</h4>
         <div>
-          <button onClick={() => handleButtonClick("Read")}>Read</button>
-          <button onClick={() => handleButtonClick("Want to Read")}>
+          <button className="btn btn-primary" onClick={() => handleButtonClick("Read")}>Read</button>
+          <button className="btn btn-primary" onClick={() => handleButtonClick("Want to Read")}>
             Want to Read
           </button>
-          <button onClick={() => handleButtonClick("Currently Reading")}>
+          <button className="btn btn-primary" onClick={() => handleButtonClick("Currently Reading")}>
             Currently Reading
           </button>
         </div>
