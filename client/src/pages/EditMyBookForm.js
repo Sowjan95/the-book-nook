@@ -32,6 +32,11 @@ function EditForm(props) {
     }
   };
 
+  const handleShelfChange = (e) => {
+    setCurrentShelf(e.target.value);
+    setFormValues({...formValues, shelf: e.target.value});
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -77,7 +82,7 @@ function EditForm(props) {
           <div className="input-group">
             <label>
                 Shelf:
-                <select value={formValues.shelf} onChange={(e) => setCurrentShelf(e.target.value)}>
+                <select value={formValues.shelf} onChange={handleShelfChange}>
                     <option value="Want to Read">Want to Read</option>
                     <option value="Currently Reading">Currently Reading</option>
                     <option value="Read">Read</option>
