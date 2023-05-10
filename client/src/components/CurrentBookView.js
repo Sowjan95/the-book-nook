@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function CurrentBookView(props) {
     const[books, setBooks] = useState([]);
+    const navigate = useNavigate();
 
     // fetch book data of user's currently reading my_books
     useEffect(() => {
@@ -24,6 +25,12 @@ function CurrentBookView(props) {
         getBookData(props.readBooks);
       }, [props.readBooks]);
 
+    function handleEdit(book) {
+      navigate("/my_book/edit", {
+        state: { bookProps: book, shelf: "Currently Reading" },
+      });
+    }
+
     return (
         <div className="container-fluid text-center">
         <div className="row justify-content-center">
@@ -34,6 +41,9 @@ function CurrentBookView(props) {
                     <div key={book.id}>
                         <Link to={"/book/" + book.BookId}><h5 className="bookLink">{book.title}</h5></Link>
                         <p>{book.author}</p>
+                        <button className="btn btn-success" type="button" onClick={() => handleEdit(book)}>
+                            Edit
+                        </button>
                         <div className="card-footer small text-muted d-flex justify-content-between">
                             <div>Pages Read: {book.pages_read}</div>
                             <div>Date Started: {new Date(book.date_started).toLocaleDateString("en-US",

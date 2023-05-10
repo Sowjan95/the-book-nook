@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import ReadBookView from "../components/ReadBookView";
 import CurrentBookView from "../components/CurrentBookView";
 import ToReadBookView from "../components/ToReadBookView";
 
 
-function MyBooks(props) {
+function MyBooks() {
+  const location = useLocation();
   const[myCurrentBooks, setMyCurrentBooks] = useState([]);
   const[myReadBooks, setMyReadBooks] = useState([]);
   const[myToReadBooks, setMyToReadBooks] = useState([]);
-  const [selectedOption, setSelectedOption] = useState('Read');
+  const [selectedOption, setSelectedOption] = useState(location.state || 'Read');
 
   //fetch data
   useEffect(() => {
-
     // fetch user's currently reading my_books
     // sort books in ascending order by date_started
     async function getMyCurrentBooks() {
@@ -83,18 +84,18 @@ function MyBooks(props) {
     <div>
         <h1>My Books</h1>
         <div className="container-fluid text-center">
-            <div className="row justify-content-center">
+            <div className="justify-content-center">
                 <div className='App'>
-                <nav className="navbar navbar-expand-sm navbar-dark shadow mb-3">
+                <nav className="navbar navbar-expand-sm justify-content-center">
                     <div>
-                        <button onClick={() => setSelectedOption('Read')}>
-                            Read
+                        <button className={selectedOption === 'Read' ? 'btn btn-primary' : 'btn btn-secondary'} onClick={() => setSelectedOption('Read')}>
+                          Read
                         </button>
-                        <button onClick={() => setSelectedOption('Want to Read')}>
-                            Want to Read
+                        <button className={selectedOption === 'Want to Read' ? 'btn btn-primary' : 'btn btn-secondary'} onClick={() => setSelectedOption('Want to Read')}>
+                          Want to Read
                         </button>
-                        <button onClick={() => setSelectedOption('Currently Reading')}>
-                            Currently Reading
+                        <button className={selectedOption === 'Currently Reading' ? 'btn btn-primary' : 'btn btn-secondary'} onClick={() => setSelectedOption('Currently Reading')}>
+                          Currently Reading
                         </button>
                     </div>
                     </nav>

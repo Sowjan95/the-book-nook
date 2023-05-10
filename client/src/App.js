@@ -14,6 +14,7 @@ import MyBooksPage from "./pages/MyBooksPage"
 import ShowBookPage from "./pages/ShowBookPage";
 import CommunityPage from "./pages/CommunityPage";
 import AddMyBookForm from "./pages/AddMyBookForm";
+import EditMyBookForm from "./pages/EditMyBookForm";
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -106,6 +107,7 @@ function App() {
               <Route path="/log-in" element={<LoginPage />} />
               <Route path="/posts/new" element={<PostFormPage />} />
               <Route path="/my_book/new" element={<AddMyBookForm />} />
+              <Route path="/my_book/edit" element={<EditMyBookForm />} />
               <Route path="/posts/:id" element={<ShowPostPage />} />
               <Route path="/book/:id" element={<ShowBookPage />} />
               <Route path="/about-us" element={<AboutUsPage />} />

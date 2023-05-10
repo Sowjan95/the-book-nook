@@ -109,23 +109,14 @@ function UserProfile() {
       </h1>
 
       <div className= "placement-card">
-        {user && (
-          <h2>Name: {user.name} Email: {user.email}</h2>
-        )}
-        <div className="d-grid gap-2 mt-3">
+        <div className="logout">
           {user && 
-            <button type="submit" className="btn text-black" onClick={handleLogout}>
+            <button type="submit" className="btn btn-secondary" onClick={handleLogout}>
               Logout
             </button>
           }
-          {!user &&
-            <button type="submit" className="btn text-black" onClick={handleLogin}>
-              Login
-            </button>
-          }
         </div>
-        <img className="profileImage" 
-          class="img-thumbnail"
+        <img className="profileImage img-thumbnail"
           src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
           alt="User Profile"
         />
