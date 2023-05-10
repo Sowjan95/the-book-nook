@@ -86,7 +86,7 @@ function EditForm(props) {
             {(currentShelf==="Read") && (<>
                 <label>
                     Rating:
-                    <input type="number" name="rating" min="1" max="5" value={formValues.rating} onChange={handleChange} />
+                    <input type="number" name="rating" min="0" max="5" value={formValues.rating} onChange={handleChange} />
                 </label>
                 <label>
                     Review:

@@ -1,6 +1,5 @@
 
 import React, { useState } from "react";
-// import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.js";;
 // import "../homepage.css"
 
@@ -10,7 +9,6 @@ function  LoginPage(props) {
   const[username, setUsername] = useState("");
   const[password, setPassword] = useState("");
   const[email, setEmail] = useState("");
-  // const [success, setSuccess] = useState(false);
  
   let [authMode, setAuthMode] = useState("signin");
 
@@ -37,8 +35,6 @@ function  LoginPage(props) {
       if (response.ok) {
         console.log("signed up");
         window.location.replace('/user-profile');
-        // setSuccess(true);
-        // window.location.reload(); // refresh the page
       }
     } catch (error) {
       console.error("Server error while creating a new user", error);
@@ -51,15 +47,12 @@ function  LoginPage(props) {
     try {
       await auth.authenticate(email, password);
       console.log("logged in");
-      // setSuccess(true);
       window.location.replace('/user-profile');
       
     } catch (error) {
       console.error("Server error while logging in", error);
     }
-    
   };
-  // if (success) return <Navigate to="/user-profile" />;
 
   if (authMode === "signin") {
     return (

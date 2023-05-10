@@ -71,7 +71,7 @@ function HomePage(props) {
     <div>
       <h1>Home</h1>
       
-      <div classname='App'>
+      <div className='App'>
         <SearchBar books={books} />
       </div>
 

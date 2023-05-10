@@ -31,6 +31,31 @@ function ToReadBookView(props) {
       });
     }
 
+    const handleDelete = async (book) => {
+      try {
+        const response = await fetch(`/api/my_book/${book.id}`, {
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id: book.id })
+        });
+        if (!response.ok) {
+          throw new Error('Failed to delete my book');
+        }
+        const data = await response.text();
+        if (data) {
+          return JSON.parse(data);
+        }
+        window.location.reload();
+        return null;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+
     return (
         <div className="container-fluid text-center">
         <div className="row justify-content-center">
@@ -43,6 +68,9 @@ function ToReadBookView(props) {
                         <p>{book.author}</p>
                         <button className="btn btn-success" type="button" onClick={() => handleEdit(book)}>
                             Edit
+                        </button>
+                        <button className="btn btn-danger" type="button" onClick={() => handleDelete(book)}>
+                            Delete
                         </button>
                         <div className="card-footer small text-muted">
                             <div className="text-end">Date Added: {new Date(book.createdAt).toLocaleDateString("en-US",
