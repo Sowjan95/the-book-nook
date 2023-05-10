@@ -4,9 +4,11 @@ import ErrorAlert from "../components/ErrorAlert";
 import { useParams, useNavigate } from "react-router-dom";
 import CardTemplate from "../components/CardTemplate";
 import ShelfFormCard from "../components/ShelfFormCard";
+import UserSearchBar from "../components/UserSearchBar";
 
 function ShowBookPage() {
   const [showShelfForm, setShowShelfForm] = useState(false);
+  const [showFriendForm, setShowFriendForm] = useState(false);
   const navigate = useNavigate();
 
   const [post, setPost] = useState(null);
@@ -20,6 +22,14 @@ function ShowBookPage() {
   }
 
   function handleShelfFormSubmit(selectedOption) {
+    navigate('/my_book/new', { state: { bookProps: post, shelf: selectedOption } });
+  }
+
+  function handleRecommend() {
+    setShowFriendForm(true);
+  }
+
+  function handleRecommendSubmit(selectedOption) {
     navigate('/my_book/new', { state: { bookProps: post, shelf: selectedOption } });
   }
 
@@ -56,13 +66,20 @@ function ShowBookPage() {
 <div className="container-fluid text-center">
       <div className="row justify-content-center">
         <div className="col-10 col-md-8 col-lg-7">
-          <CardTemplate props={post} onAddToShelf={handleAddToShelf} />
+          <CardTemplate props={post} onAddToShelf={handleAddToShelf} onRecommend={handleRecommend} />
         </div>
       </div>
       {showShelfForm && (
         <div className="row justify-content-center">
           <div className="col-10 col-md-8 col-lg-7">
             <ShelfFormCard bookProps={post} onSubmit={handleShelfFormSubmit} />
+          </div>
+        </div>
+      )}
+      {showFriendForm && (
+        <div className="row justify-content-center">
+          <div className="col-10 col-md-8 col-lg-7">
+            <UserSearchBar addRec={showFriendForm} addFriend={false} onSubmit={handleRecommendSubmit} />
           </div>
         </div>
       )}

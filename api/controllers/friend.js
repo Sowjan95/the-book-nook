@@ -18,6 +18,28 @@ router.get("/", passport.isAuthenticated(), async (req, res) => {
     res.json(friends);
 });
 
+// find a friend
+router.get("/find/:username", passport.isAuthenticated(), async (req, res) => {
+
+  const { username } = req.params;
+  const user = req.user;
+
+  const friend = await User.findOne({
+    where: { username },
+    include: [
+      {
+        model: User,
+        as: "Friends",
+      }
+    ]
+  });
+
+  if (!friend) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  return res.json(friend); 
+});
 
 // router.get('/friends', passport.isAuthenticated(), async (req, res) => {
 //   try {

@@ -31,7 +31,6 @@ function CurrentBookView(props) {
       });
     }
 
-
     const handleDelete = async (book) => {
       try {
         const response = await fetch(`/api/my_book/${book.id}`, {

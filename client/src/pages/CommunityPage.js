@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import UserSearchBar from "../components/UserSearchBar";
 
 
 function Community(props) {
@@ -98,6 +99,9 @@ function Community(props) {
                     </tbody>
                 </table>
                 )}
+                </div>
+                <div className='App'>
+                  <UserSearchBar />
                 </div>
             </div>
         </div>

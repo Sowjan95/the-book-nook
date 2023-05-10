@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function CardTemplate({props, loggedIn, onAddToShelf }) {
+function CardTemplate({ props, loggedIn, onAddToShelf, onRecommend }) {
   const [user, setUser] = useState();
 
   useEffect(() => {
@@ -32,6 +32,11 @@ function CardTemplate({props, loggedIn, onAddToShelf }) {
               {user && (
                 <button className="btn btn-success" type="button" onClick={onAddToShelf}>
                   Add to Shelf
+                </button>
+              )}
+              {user && (
+                <button className="btn btn-success" type="button" onClick={onRecommend}>
+                  Recommend
                 </button>
               )}
             </div>

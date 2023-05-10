@@ -40,24 +40,6 @@ function ReadBookView(props) {
       });
     }
 
-    // const handleDelete = async (book) => {
-    //   try {
-    //     const response = await fetch(`/api/my_book/${book.id}`, {
-    //       method: 'DELETE',
-    //       credentials: 'include',
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       },
-    //       body: JSON.stringify({ id: book.id })
-    //     });
-    //     if (!response.ok) {
-    //       throw new Error('Failed to delete my book');
-    //     }
-    //     return response.json();
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // }
     const handleDelete = async (book) => {
       try {
         const response = await fetch(`/api/my_book/${book.id}`, {
@@ -81,8 +63,6 @@ function ReadBookView(props) {
         console.error(error);
       }
     }
-
-
 
     return (
         <div className="container-fluid text-center">
