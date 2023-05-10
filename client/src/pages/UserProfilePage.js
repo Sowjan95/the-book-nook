@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext.js";
-import { Navigate, useNavigate } from "react-router-dom";
-
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function UserProfile() {
   const [user, setUser] = useState();
   const [myFavoriteBooks, setMyFavoriteBooks] = useState([]);
   const [myCurrentBooks, setMyCurrentBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
-
   const auth = useAuth();
-  const [success, setSuccess] = useState(false);
 
 
   useEffect(() => {
@@ -87,7 +83,6 @@ function UserProfile() {
     try {
       await auth.signout();
       console.log("logged out");
-      // setSuccess(true);
       window.location.replace('/');
       
     } catch (error) {
@@ -95,14 +90,8 @@ function UserProfile() {
     }
   };
 
-  const handleLogin = async (event) => {
-    navigate("/log-in");
-  };
-
-  // if (success) return <Navigate to="/" />;
-
+  if (isLoading) return <LoadingSpinner />;
   return (
-
     <div>
       <h1 className="profileHeader title">
         Welcome, {user ? user.username : "User"}!
@@ -137,30 +126,6 @@ function UserProfile() {
             }
           </div>
         )}
-        {/* {isLoading ? (
-          <p>Loading...</p>
-        ) : myCurrentBooks.length > 0 ? (
-          <div className="current-mybooks">
-            <table>
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Author</th>
-                </tr>
-              </thead>
-              <tbody>
-                {myCurrentBooks.map((book) => (
-                  <tr key={book.id}>
-                    <td>{book.title}</td>
-                    <td>{book.author}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <p>No currently reading books found.</p>
-        )} */}
       </div>
 
       <div>
@@ -177,28 +142,6 @@ function UserProfile() {
           </div>
         )}
       </div>
-
-{/* <div>
-  <h2 className="profileHeader title">Favorite Books</h2>
-  {myFavoriteBooks.length > 0 && (
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-        </tr>
-      </thead>
-      <tbody>
-        {myFavoriteBooks.map((book) => (
-          <tr key={book.id}>
-            <td>{book.title}</td>
-            <td>{book.author}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  )}
-</div> */}
     </div>
     
   );
