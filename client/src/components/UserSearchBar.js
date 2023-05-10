@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import ErrorAlert from "./ErrorAlert";
 
-const UserSearchBar = ( {props, onAddFriend, addFriend, addRec } ) => {
+const UserSearchBar = ( {props, addFriend, addRec, myFriends } ) => {
 
     const [searchInput, setSearchInput] = useState("");
     const [searchedUser, setSearchedUser] = useState();
     const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleChange = (e) => {
         setSearchInput(e.target.value);
@@ -18,6 +20,7 @@ const UserSearchBar = ( {props, onAddFriend, addFriend, addRec } ) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setSuccess(false);
         try {
             // if adding a recommendation, find specific friend from search function
             if (addRec) {
@@ -34,7 +37,7 @@ const UserSearchBar = ( {props, onAddFriend, addFriend, addRec } ) => {
                 // fetch users by username
                 const userResponse = await fetch(`/api/friend/find/${searchInput}`);
                 const userData = await userResponse.json();
-                setSearchedUser(userData);
+                if (!userData.message) setSearchedUser(userData);
                 console.log("userData", userData);
             }
 
@@ -59,17 +62,48 @@ const UserSearchBar = ( {props, onAddFriend, addFriend, addRec } ) => {
           });
           if (response.ok) {
             setSuccess(true);
-            console.log("Success!")
+            console.log("Success!");
           }
   
         } catch (error) {
           console.error("Server error while creating a new micro post", error);
         }
       };
-  
+
+    const handleAddFriendSubmit = async() => {
+        for (let i = 0; i < myFriends.length; i++) {
+            console.log("searching", myFriends[i].username );
+            if (myFriends[i].username === searchedUser.username) {
+              setError("This user is already your friend!");
+              return;
+            }
+          }
+        try {
+            let response = await fetch("/api/friend", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                friendId: searchedUser.id,
+            }),
+            });
+            if (response.ok) {
+                setSuccess(true);
+                console.log("Success!");
+                window.location.reload();
+            }
+
+        } catch (error) {
+            console.error("Server error while creating a new micro post", error);
+        }
+    };
+
 
     return (
     <div className="col-md-8 col-lg-7 mx-auto">
+        {error && <ErrorAlert details={error} />}
         {addFriend && <h4>Search for other users:</h4>}
         {addRec && <h4>Search for friend:</h4>}
         <form onSubmit={handleSubmit}>
@@ -100,9 +134,16 @@ const UserSearchBar = ( {props, onAddFriend, addFriend, addRec } ) => {
                         <td className="foundUser">{searchedUser.username}</td>
                         {addFriend &&
                             <td className="d-flex justify-content-end">
-                                <button className="btn btn-primary addFriend" onSubmit={onAddFriend}>
+                                {!success &&
+                                <button className="btn btn-primary addRec" onClick={handleAddFriendSubmit}>
                                     Add Friend
                                 </button>
+                                }
+                                {success &&
+                                <button className="btn btn-secondary">
+                                    Friend Added!
+                                </button>
+                                }
                             </td>
                         }
                         {addRec &&

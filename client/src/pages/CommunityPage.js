@@ -85,7 +85,7 @@ function Community(props) {
                 <table>
                     <thead>
                         <tr>
-                            <th>Reccommendation</th>
+                            <th>Recommendation</th>
                             <th>Sent By</th>
                         </tr>
                     </thead>
@@ -101,7 +101,7 @@ function Community(props) {
                 )}
                 </div>
                 <div className='App'>
-                  <UserSearchBar />
+                  <UserSearchBar addFriend={true} myFriends={myFriends} />
                 </div>
             </div>
         </div>

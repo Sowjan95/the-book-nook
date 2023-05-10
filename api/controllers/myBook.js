@@ -69,6 +69,7 @@ router.get("/favorites", passport.isAuthenticated(), async (req, res) => {
   const user = req.user;
   MyBook.findAll({
       where:{
+        UserId: user.id,
         like: true
       }
     }).then((allMyBooks) => res.json(allMyBooks));

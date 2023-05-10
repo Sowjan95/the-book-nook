@@ -89,9 +89,10 @@ function UserProfile() {
       console.error("Server error while logging in", error);
     }
   };
-
+  
   if (isLoading) return <LoadingSpinner />;
   return (
+
     <div>
       <h1 className="profileHeader title">
         Welcome, {user ? user.username : "User"}!

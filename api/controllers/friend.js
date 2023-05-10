@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../models");
 const passport = require("../middlewares/authentication");
 const { user } = require("pg/lib/defaults");
-const { User, UserUser } = db;
+const { User } = db;
 
 
 // get all friends
