@@ -17,6 +17,7 @@ function ShowBookPage() {
 
   let params = useParams();
 
+  // Adding a book to bookshelf
   function handleAddToShelf() {
     setShowShelfForm(true);
   }
@@ -25,14 +26,13 @@ function ShowBookPage() {
     navigate('/my_book/new', { state: { bookProps: post, shelf: selectedOption } });
   }
 
+
+  // Sending a recommendation to a friend
   function handleRecommend() {
     setShowFriendForm(true);
   }
-
-  function handleRecommendSubmit(selectedOption) {
-    navigate('/my_book/new', { state: { bookProps: post, shelf: selectedOption } });
-  }
-
+  
+  // Getting book data
   useEffect(() => {
 
     // get book data
@@ -63,7 +63,7 @@ function ShowBookPage() {
   if (loading) return <LoadingSpinner />;
 
   return(
-<div className="container-fluid text-center">
+    <div className="container-fluid text-center">
       <div className="row justify-content-center">
         <div className="col-10 col-md-8 col-lg-7">
           <CardTemplate props={post} onAddToShelf={handleAddToShelf} onRecommend={handleRecommend} />
@@ -79,7 +79,7 @@ function ShowBookPage() {
       {showFriendForm && (
         <div className="row justify-content-center">
           <div className="col-10 col-md-8 col-lg-7">
-            <UserSearchBar addRec={showFriendForm} addFriend={false} onSubmit={handleRecommendSubmit} />
+            <UserSearchBar addRec={showFriendForm} addFriend={false} props={post} />
           </div>
         </div>
       )}
