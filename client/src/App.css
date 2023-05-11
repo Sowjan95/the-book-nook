@@ -102,3 +102,7 @@ table {
   .FriendSearch {
     margin-top: 20px;
   }
+
+  .navbarcolor:hover {
+    color: #0D6EFD
+  }
