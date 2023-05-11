@@ -86,10 +86,19 @@ table {
   }
 
   .profileImage {
-    width: 500px;
+    width: 300px;
     height: auto;
+    object-fit: cover;
+    float: center;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .logout {
     margin: 10px;
+  }
+
+  .FriendSearch {
+    margin-top: 20px;
   }

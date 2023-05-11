@@ -99,6 +99,10 @@ function UserProfile() {
       </h1>
 
       <div className= "placement-card">
+        <img className="profileImage img-thumbnail"
+          src="https://i.pinimg.com/564x/d0/85/32/d0853248f043d7010f280d5b43687dc0.jpg"
+          alt="User Profile"
+        />
         <div className="logout">
           {user && 
             <button type="submit" className="btn btn-secondary" onClick={handleLogout}>
@@ -106,16 +110,13 @@ function UserProfile() {
             </button>
           }
         </div>
-        <img className="profileImage img-thumbnail"
-          src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
-          alt="User Profile"
-        />
       </div>
        <br/>
        <br/>
 
-      <div>
-       <h2 className="profileHeader title">Currently Reading</h2>
+<div className="row justify-content-center">
+       <div className="col-md-5">
+       <h4 className="profileHeader title">Your Current Reads</h4>
          {myCurrentBooks.length > 0 && (
           <div className="current-mybooks">
             {myCurrentBooks.map((book) => (
@@ -129,8 +130,8 @@ function UserProfile() {
         )}
       </div>
 
-      <div>
-       <h2 className="profileHeader title">Favorite Books</h2>
+      <div className="col-md-5">
+       <h4 className="profileHeader title">Your All Time Favorites</h4>
          {myFavoriteBooks.length > 0 && (
           <div className="favorites-mybooks">
             {myFavoriteBooks.map((book) => (
@@ -143,6 +144,7 @@ function UserProfile() {
           </div>
         )}
       </div>
+    </div>
     </div>
     
   );

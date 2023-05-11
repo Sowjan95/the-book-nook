@@ -104,7 +104,7 @@ const UserSearchBar = ( {props, addFriend, addRec, myFriends } ) => {
     return (
     <div className="col-md-8 col-lg-7 mx-auto">
         {error && <ErrorAlert details={error} />}
-        {addFriend && <h4>Search for other users:</h4>}
+        {addFriend && <h4>Find new friends:</h4>}
         {addRec && <h4>Search for friend:</h4>}
         <form onSubmit={handleSubmit}>
         <div className="input-group">

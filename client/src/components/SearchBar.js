@@ -71,6 +71,7 @@ const SearchBar = (props) => {
                 onChange={handleChange}
                 value={searchInput}
                 className="form-control"
+                style={{ height: "38px" }}
                 autoFocus
             />
             <button className="btn btn-primary" type="submit">Search</button>

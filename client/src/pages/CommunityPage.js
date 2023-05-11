@@ -64,12 +64,13 @@ function Community(props) {
         <h1>Community</h1>
         <div className="container-fluid text-center">
             <div className="row justify-content-center">
-                <div className='App'>
+                <div className="col-md-5">
+                  <h4>Your Friends List</h4>
                 {myFriends.length > 0 && (
                 <table>
                     <thead>
                         <tr>
-                            <th>Friends</th>
+                            <th>Username</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,6 +82,9 @@ function Community(props) {
                     </tbody>
                 </table>
                 )}
+                </div>
+                <div className="col-md-6">
+                <h4>Your Recommendations</h4>
                  {myRecs.length > 0 && (
                 <table>
                     <thead>
@@ -100,12 +104,12 @@ function Community(props) {
                 </table>
                 )}
                 </div>
-                <div className='App'>
+                </div>
+                <div className='FriendSearch'>
                   <UserSearchBar addFriend={true} myFriends={myFriends} />
                 </div>
             </div>
         </div>
-    </div>
   );
 }
 
