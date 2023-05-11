@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext.js";
-import { Navigate } from "react-router-dom";
-// import CardTemplate from "../components/CardTemplate";
-import ProfileCard from "../components/ProfileCard";
-
-// import Container from 'react-bootstrap/Container';
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
-// import Image from 'react-bootstrap/Image'
-// import "../userprofile.css"
-
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function UserProfile() {
   const [user, setUser] = useState();
   const [myFavoriteBooks, setMyFavoriteBooks] = useState([]);
   const [myCurrentBooks, setMyCurrentBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   const auth = useAuth();
-  const [success, setSuccess] = useState(false);
 
 
   useEffect(() => {
@@ -78,7 +67,6 @@ function UserProfile() {
           })
         );
         setMyFavoriteBooks(favoriteBooks);
-        console.log(myFavoriteBooks);
       } catch (error) {
         console.error("Error fetching all favorite books", error);
       }
@@ -95,15 +83,14 @@ function UserProfile() {
     try {
       await auth.signout();
       console.log("logged out");
-      setSuccess(true);
+      window.location.replace('/');
       
     } catch (error) {
       console.error("Server error while logging in", error);
     }
-    
   };
-  if (success) return <Navigate to="/" />;
-
+  
+  if (isLoading) return <LoadingSpinner />;
   return (
 
     <div>
@@ -112,25 +99,24 @@ function UserProfile() {
       </h1>
 
       <div className= "placement-card">
-        {user && (
-          <h2>Name: {user.name} Email: {user.email}</h2>
-        )}
-        <div className="d-grid gap-2 mt-3">
-          <button type="submit" className="btn text-black" onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
-        <img className="profileImage" 
-          class="img-thumbnail"
-          src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
+        <img className="profileImage img-thumbnail"
+          src="https://i.pinimg.com/564x/d0/85/32/d0853248f043d7010f280d5b43687dc0.jpg"
           alt="User Profile"
         />
+        <div className="logout">
+          {user && 
+            <button type="submit" className="btn btn-secondary" onClick={handleLogout}>
+              Logout
+            </button>
+          }
+        </div>
       </div>
        <br/>
        <br/>
 
-      <div>
-       <h2 className="profileHeader title">Currently Reading</h2>
+<div className="row justify-content-center">
+       <div className="col-md-5">
+       <h4 className="profileHeader title">Your Current Reads</h4>
          {myCurrentBooks.length > 0 && (
           <div className="current-mybooks">
             {myCurrentBooks.map((book) => (
@@ -142,34 +128,10 @@ function UserProfile() {
             }
           </div>
         )}
-        {/* {isLoading ? (
-          <p>Loading...</p>
-        ) : myCurrentBooks.length > 0 ? (
-          <div className="current-mybooks">
-            <table>
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Author</th>
-                </tr>
-              </thead>
-              <tbody>
-                {myCurrentBooks.map((book) => (
-                  <tr key={book.id}>
-                    <td>{book.title}</td>
-                    <td>{book.author}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <p>No currently reading books found.</p>
-        )} */}
       </div>
 
-      <div>
-       <h2 className="profileHeader title">Favorite Books</h2>
+      <div className="col-md-5">
+       <h4 className="profileHeader title">Your All Time Favorites</h4>
          {myFavoriteBooks.length > 0 && (
           <div className="favorites-mybooks">
             {myFavoriteBooks.map((book) => (
@@ -182,28 +144,7 @@ function UserProfile() {
           </div>
         )}
       </div>
-
-{/* <div>
-  <h2 className="profileHeader title">Favorite Books</h2>
-  {myFavoriteBooks.length > 0 && (
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-        </tr>
-      </thead>
-      <tbody>
-        {myFavoriteBooks.map((book) => (
-          <tr key={book.id}>
-            <td>{book.title}</td>
-            <td>{book.author}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  )}
-</div> */}
+    </div>
     </div>
     
   );

@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
     Book.findAll({}).then((allBooks) => res.json(allBooks));
 });
 
-// get all books
+// get book by id
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {

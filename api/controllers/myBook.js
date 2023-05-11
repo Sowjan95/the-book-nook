@@ -48,6 +48,9 @@ router.get("/author/:author", passport.isAuthenticated(), async (req, res) => {
 router.get("/shelf/:type", passport.isAuthenticated(), async (req, res) => {
     const user = req.user;
     const {type}  = req.params;
+    if (!type) {
+      type = "Currently Reading";
+    }
     let shelf = await Shelf.findOne({
         where:{
         type: type,
@@ -66,6 +69,7 @@ router.get("/favorites", passport.isAuthenticated(), async (req, res) => {
   const user = req.user;
   MyBook.findAll({
       where:{
+        UserId: user.id,
         like: true
       }
     }).then((allMyBooks) => res.json(allMyBooks));
@@ -75,6 +79,9 @@ router.get("/favorites", passport.isAuthenticated(), async (req, res) => {
 router.post("/", passport.isAuthenticated(),  async (req, res) => {
   let { rating, review, like, pages_read, date_started, date_ended, type, title } = req.body;
   let userId = (req.user).id;
+  if (!type) {
+    type = "Want to Read";
+  }
   let shelf = await Shelf.findOne({
     where:{
       type: type,

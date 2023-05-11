@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const SearchBar = (props) => {
 
@@ -60,16 +61,21 @@ const SearchBar = (props) => {
     }
 
     return (
-    <div>
+    <div className="col-md-8 col-lg-7 mx-auto">
         <h4>Search for a book by title or author:</h4>
         <form onSubmit={handleSubmit}>
+        <div className="input-group">
             <input
                 type="search"
                 placeholder="Search book title or author"
                 onChange={handleChange}
                 value={searchInput}
+                className="form-control"
+                style={{ height: "38px" }}
+                autoFocus
             />
-            <button type="submit">Search</button>
+            <button className="btn btn-primary" type="submit">Search</button>
+            </div>
         </form>
         
         {searchedBooks.length > 0 && (
@@ -83,7 +89,7 @@ const SearchBar = (props) => {
             <tbody>
                 {searchedBooks.map((book) => (
                     <tr key={book.id}>
-                        <td>{book.title}</td>
+                        <Link to={"/book/" + book.id}><td className="bookLink">{book.title}</td></Link>
                         <td>{book.author}</td>
                     </tr>
                 ))}

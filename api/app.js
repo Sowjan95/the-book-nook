@@ -56,7 +56,7 @@ async function addShelves(){
   const result = await (Shelf.findAll({
     attributes: ['type']
   }))
-  if (result.length < 5) {
+  if (result.length < 3) {
       Shelf.destroy({
         where: {},
       });

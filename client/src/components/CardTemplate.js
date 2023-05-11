@@ -1,42 +1,54 @@
-import React from "react";
-import Button from 'react-bootstrap/Button';
-import { Link } from "react-router-dom";
-import Card from 'react-bootstrap/Card';
-// import "../card.css"
+import React, { useState, useEffect } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function CardTemplate({props, loggedIn}) {
-  const handleDelete = async function(event){
-    event.preventDefault();
-    try{
-      const url = "/api/events/" + props.id;
-      await fetch(url, {method: "DELETE"})
-      .then(() => console.log("deleted event "));
-      window.location.reload(false);
-    }catch(error){
-      console.log(error);
+function CardTemplate({ props, editShelf, onAddToShelf, onRecommend, onEditSubmit }) {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+
+    // fetch user
+    async function getUser() {
+      try {
+        const userResponse = await fetch("/api/auth/login");
+        const userData = await userResponse.json();
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching all user data", error);
+      }
     }
-  }
-
-  return (
-    <div className="cardStyle">
-      <Card style={{ width: '18rem' }}>
-      <Card.Body className="lowerCard">
-        <Card.Title>Title: {props.title}</Card.Title>
-        <Card.Text>Author: {props.author}</Card.Text>
-        <Card.Link href={props.link} target="_blank" className="link-color">Register</Card.Link>
-      </Card.Body>
-    </Card>
-    {loggedIn && (
-      <div className="buttons">
-        <Button className="button">
-          <Link className="update-link" to="/event-form" state={{eventInfo: props}}>Update</Link>
-        </Button>
-        <Button className="button" onClick={handleDelete}>Delete</Button>
-        
-      </div>
-    )}
-    </div>
     
+    getUser();
+  }, []);
+  
+  return (
+    <div className="container-fluid text-center">
+      <div className="row justify-content-center">
+        <div className="col-10 col-md-8 col-lg-7">
+          <div className="card mb-4 shadow">
+            <div className="card-body card-text">
+              <h2>{props.title}</h2>
+              <h4>{props.author}</h4>
+              <p>Pages: {props.pages}</p>
+              {user && editShelf===false && (
+                <button className="btn btn-success" type="button" onClick={onAddToShelf}>
+                  Add to Shelf
+                </button>
+              )}
+              {user && editShelf===true && (
+                <button className="btn btn-success" type="button" onClick={onEditSubmit}>
+                  Go to Shelf
+                </button>
+              )}
+              {user && (
+                <button className="btn btn-success" type="button" onClick={onRecommend}>
+                  Recommend
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

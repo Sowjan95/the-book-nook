@@ -4,8 +4,6 @@ const router = express.Router();
 // Load each controller
 const authController = require("./auth.js");
 const microPostsController = require("./microPosts.js");
-const myBooksController = require("./myBooks.js");
-const friendsController = require("./friends.js")
 const bookController = require("./book.js");
 const myBookController = require("./myBook.js");
 const shelfController = require("./shelf.js");
