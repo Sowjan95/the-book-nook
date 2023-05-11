@@ -4,43 +4,15 @@ function AboutUsPage(props) {
   return (
     <>
       <div className="col text-center">
-        <h2 className="mb-3">About our project</h2>
-        <p className="mb-5">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-          quidem adipisci nobis quia eum quaerat quos ducimus, deleniti
-          exercitationem animi itaque iste illo reiciendis vitae atque
-          necessitatibus voluptatum repellendus quisquam?
+        <h2 className="mb-3">About this project</h2>
+        <p className="mb-5 col-6 mx-auto">
+          <b>theBookNook</b> was created by Sowjanya Sritharasarma when she was a student in Cuny Tech Prep's eighth cohort.
+          This project combines her love of coding, reading, and endlessly recommending books to her friends.
+          <br></br>
+          <br></br>
+          Sowjanya is a Hunter College computer science student in her junior year. She hopes to continue working
+          on tech projects that combine the arts and technology.
         </p>
-        <h2 className="mb-3">About our Team</h2>
-        <div className="row">
-          <div className="col-lg-4">
-            <h3>Firstname Lastname</h3>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Dignissimos in itaque nihil consectetur qui natus similique
-              nostrum molestias, ipsa explicabo hic impedit aspernatur. Ipsa
-              provident neque culpa alias incidunt amet.
-            </p>
-          </div>
-          <div className="col-lg-4">
-            <h3>Firstname Lastname</h3>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Dignissimos in itaque nihil consectetur qui natus similique
-              nostrum molestias, ipsa explicabo hic impedit aspernatur. Ipsa
-              provident neque culpa alias incidunt amet.
-            </p>
-          </div>
-          <div className="col-lg-4">
-            <h3>Firstname Lastname</h3>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Dignissimos in itaque nihil consectetur qui natus similique
-              nostrum molestias, ipsa explicabo hic impedit aspernatur. Ipsa
-              provident neque culpa alias incidunt amet.
-            </p>
-          </div>
-        </div>
       </div>
     </>
   );
