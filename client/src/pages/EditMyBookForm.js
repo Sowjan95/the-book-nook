@@ -70,6 +70,7 @@ function EditForm(props) {
   };
 
   if (success) {
+    console.log(currentShelf)
     navigate('/mybooks', { state: currentShelf });
     return null;
   }

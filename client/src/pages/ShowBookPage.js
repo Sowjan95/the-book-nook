@@ -10,6 +10,7 @@ function ShowBookPage() {
   const [showShelfForm, setShowShelfForm] = useState(false);
   const [showFriendForm, setShowFriendForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [editShelf, setEditShelf] = useState("");
   const navigate = useNavigate();
 
   const [post, setPost] = useState(null);
@@ -29,7 +30,7 @@ function ShowBookPage() {
   }
 
   function handleEditSubmit() {
-    navigate('/mybooks/');
+    navigate('/mybooks/', {state: editShelf});
   }
 
   // Sending a recommendation to a friend
@@ -54,6 +55,11 @@ function ShowBookPage() {
           setShowEditForm(false);
         }
         else {
+          console.log(postData.ShelfId)
+          response = await fetch("/api/shelf/" + postData[0].ShelfId);
+          postData = await response.json();
+          console.log(postData)
+          setEditShelf(postData.type)
           setShowEditForm(true);
         }
         setLoading(false);
