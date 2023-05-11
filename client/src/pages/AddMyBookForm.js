@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ErrorAlert from "../components/ErrorAlert";
 
 function ReadForm(props) {
+  const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
   const [formValues, setFormValues] = useState({
     rating: 0,
@@ -54,7 +55,9 @@ function ReadForm(props) {
     }
   };
 
-  if (success) return <Navigate to="/mybooks" />;
+  if (success) {
+    navigate('/mybooks/', {state: "Read"});
+  }
 
   return (
     <div className="col-md-8 col-lg-7 mx-auto">
@@ -90,7 +93,7 @@ function ReadForm(props) {
 }
 
 function ToReadForm(props) {
-
+  const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
@@ -124,14 +127,16 @@ function ToReadForm(props) {
     submitForm();
   }, [props.title, props.user.id]);
 
-  if (success) return <Navigate to="/mybooks" />;
+  if (success) {
+    navigate('/mybooks/', {state: "Want to Read"});
+  }
 
   return (error && <ErrorAlert details={"Failed to save the content"} />);
 
 }
 
 function CurrentlyReadingForm(props) {
-
+  const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
   const [formValues, setFormValues] = useState({
     dateStarted: new Date().toISOString().slice(0, 10),
@@ -176,7 +181,9 @@ function CurrentlyReadingForm(props) {
     }
   };
 
-  if (success) return <Navigate to="/mybooks" />;
+  if (success) {
+    navigate('/mybooks/', {state: "Currently Reading"});
+  }
 
   return (
     <div className="col-md-8 col-lg-7 mx-auto">
