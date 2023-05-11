@@ -9,6 +9,7 @@ import UserSearchBar from "../components/UserSearchBar";
 function ShowBookPage() {
   const [showShelfForm, setShowShelfForm] = useState(false);
   const [showFriendForm, setShowFriendForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
   const navigate = useNavigate();
 
   const [post, setPost] = useState(null);
@@ -19,13 +20,17 @@ function ShowBookPage() {
 
   // Adding a book to bookshelf
   function handleAddToShelf() {
-    setShowShelfForm(true);
+    if (showEditForm) setShowEditForm(false);
+    else setShowShelfForm(true);
   }
 
   function handleShelfFormSubmit(selectedOption) {
     navigate('/my_book/new', { state: { bookProps: post, shelf: selectedOption } });
   }
 
+  function handleEditSubmit() {
+    navigate('/mybooks/');
+  }
 
   // Sending a recommendation to a friend
   function handleRecommend() {
@@ -42,6 +47,15 @@ function ShowBookPage() {
         let response = await fetch("/api/books/" + params.id);
         let postData = await response.json();
         setPost(postData);
+        response = await fetch("/api/my_book/title/" + postData.title);
+        postData = await response.json();
+        console.log(postData)
+        if (postData.length === 0) {
+          setShowEditForm(false);
+        }
+        else {
+          setShowEditForm(true);
+        }
         setLoading(false);
       } catch (error) {
         console.error("Error fetching /api/books/" + params.id, error);
@@ -66,7 +80,8 @@ function ShowBookPage() {
     <div className="container-fluid text-center">
       <div className="row justify-content-center">
         <div className="col-10 col-md-8 col-lg-7">
-          <CardTemplate props={post} onAddToShelf={handleAddToShelf} onRecommend={handleRecommend} />
+          <CardTemplate props={post} onAddToShelf={handleAddToShelf} editShelf={showEditForm} 
+          onEditSubmit={handleEditSubmit} onRecommend={handleRecommend} />
         </div>
       </div>
       {showShelfForm && (

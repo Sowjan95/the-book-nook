@@ -19,6 +19,21 @@ router.post("/", (req, res) => {
       res.status(400).json(err);
     });
 });
+
+// get book by id
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const shelf = await Shelf.findByPk(id);
+    if (!shelf) {
+      return res.sendStatus(404);
+    }
+    res.json(shelf);
+  } catch (error) {
+    console.error("Error fetching shelf", error);
+    res.sendStatus(500);
+  }
+});
   
 // delete a shelf
 router.delete("/:id", (req, res) => {
