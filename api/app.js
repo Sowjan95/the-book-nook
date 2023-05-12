@@ -1,6 +1,7 @@
 const express = require("express");
 const expressSession = require("express-session");
 const morgan = require("morgan");
+require('dotenv').config();
 const passport = require("./middlewares/authentication");
 const path = require("path");
 const db = require("./models");

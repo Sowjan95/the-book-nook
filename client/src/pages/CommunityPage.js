@@ -7,6 +7,7 @@ function Community(props) {
   const[myFriends, setMyFriends] = useState([]);
   const[myRequests, setMyRequests] = useState([]);
   const[myRecs, setMyRecs] = useState([]);
+  const [success, setSuccess] = useState(false);
 
   //fetch data
   useEffect(() => {
@@ -95,6 +96,31 @@ function Community(props) {
     getMyFriendRequests();
   }, []);
 
+
+  const handleAcceptSubmit = async(friendUser) => {
+    try {
+        let response = await fetch("/api/friend", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            friendId: friendUser.id,
+        }),
+        });
+        if (response.ok) {
+            setSuccess(true);
+            console.log("Success!");
+            window.location.reload();
+        }
+
+    } catch (error) {
+        console.error("Server error while adding friend", error);
+    }
+};
+
+
     return (
     <div>
         <h1>Community</h1>
@@ -126,12 +152,25 @@ function Community(props) {
                     <thead>
                         <tr>
                             <th>Username</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {myRequests.map((friend) => (
                             <tr key={friend.id}>
                                 <td>{friend.username}</td>
+                                <td className="d-flex justify-content-end">
+                                    {!success &&
+                                    <button className="btn btn-primary addRec" onClick={() => handleAcceptSubmit(friend)}>
+                                        Add Friend
+                                    </button>
+                                    }
+                                    {success &&
+                                    <button className="btn btn-secondary">
+                                        Friend Added!
+                                    </button>
+                                    }
+                                </td>
                             </tr>
                         ))}
                     </tbody>
