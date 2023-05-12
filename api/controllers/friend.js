@@ -18,6 +18,23 @@ router.get("/", passport.isAuthenticated(), async (req, res) => {
     res.json(friends);
 });
 
+// find a friend by id
+router.get("/:friendId", passport.isAuthenticated(), async (req, res) => {
+  try {
+    const { friendId } = req.params;
+    const user = req.user;
+    const friend = await User.findOne({ where: { id: friendId } });
+
+    if (!friend) {
+      return res.status(404).json({ message: "Friend not found" });
+    }
+    return res.json(friend);
+  } catch (error) {
+    console.error("Error fetching friend by id", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 // find a friend
 router.get("/find/:username", passport.isAuthenticated(), async (req, res) => {
 
