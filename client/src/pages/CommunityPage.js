@@ -71,6 +71,7 @@ function Community(props) {
             "/api/recs"
           );
           const recsData = await recsResponse.json();
+          console.log(recsData)
           recsData.sort((a, b) =>
             a.createdAt > b.createdAt ? 1 : -1
           );
@@ -82,6 +83,8 @@ function Community(props) {
                   ]);
                   const newBookData = await newBookResponse.json();
                   const friendData = await friendResponse.json();
+                  console.log(newBookData)
+                  console.log(friendData)
                   return { ...book, title: newBookData.title, author: newBookData.author, friend: friendData.username };
             })
           );
@@ -91,6 +94,7 @@ function Community(props) {
         }
       }
 
+      console.log("friends", myFriends)
     getMyFriends();
     getMyRecs();
     getMyFriendRequests();
@@ -145,7 +149,7 @@ function Community(props) {
                 </table>
                 )}
                 </div>
-                <div className="col-md-5">
+                {/* <div className="col-md-5">
                   <h4>Your Friend Requests</h4>
                 {myRequests.length > 0 && (
                 <table>
@@ -176,7 +180,7 @@ function Community(props) {
                     </tbody>
                 </table>
                 )}
-                </div>
+                </div> */}
                 <br></br>
                 <div className="col-md-6">
                 <h4>Your Recommendations</h4>

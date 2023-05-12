@@ -11,6 +11,7 @@ function ShowBookPage() {
   const [showFriendForm, setShowFriendForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [editShelf, setEditShelf] = useState("");
+  const [user, setUser] = useState();
   const navigate = useNavigate();
 
   const [post, setPost] = useState(null);
@@ -37,6 +38,22 @@ function ShowBookPage() {
   function handleRecommend() {
     setShowFriendForm(true);
   }
+
+  useEffect(() => {
+
+    // fetch user
+    async function getUser() {
+      try {
+        const userResponse = await fetch("/api/auth/login");
+        const userData = await userResponse.json();
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching all user data", error);
+      }
+    }
+    
+    getUser();
+  }, []);
   
   // Getting book data
   useEffect(() => {
@@ -45,36 +62,41 @@ function ShowBookPage() {
     async function getData() {
       setLoading(true);
       try {
+        console.log("getting book")
         let response = await fetch("/api/books/" + params.id);
         let postData = await response.json();
+        // console.log("getting", postData)
         setPost(postData);
-        response = await fetch("/api/my_book/title/" + postData.title);
-        postData = await response.json();
-        console.log(postData)
-        if (postData.length === 0) {
-          setShowEditForm(false);
-        }
-        else {
-          console.log(postData.ShelfId)
-          response = await fetch("/api/shelf/" + postData[0].ShelfId);
+        // console.log("getting", post)
+        console.log(user)
+        if (user) {
+          response = await fetch("/api/my_book/title/" + postData.title);
           postData = await response.json();
-          console.log(postData)
-          setEditShelf(postData.type)
-          setShowEditForm(true);
-        }
+          console.log("getting", postData)
+          if (postData.length === 0) {
+            setShowEditForm(false);
+          }
+          else {
+            console.log(postData.ShelfId)
+            response = await fetch("/api/shelf/" + postData[0].ShelfId);
+            postData = await response.json();
+            console.log(postData)
+            setEditShelf(postData.type)
+            setShowEditForm(true);
+          }
+      }
         setLoading(false);
       } catch (error) {
         console.error("Error fetching /api/books/" + params.id, error);
         setError(true);
       }
     }
-
     getData();
 
     return () => {
       // clean up function
     };
-  }, [params.id]);
+  }, [user, params.id]);
 
   if (error)
     return (

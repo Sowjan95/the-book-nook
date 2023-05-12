@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Link, NavLink } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 
 import LoginPage from "./pages/LoginPage";
-import PostsListPage from "./pages/PostsListPage";
+// import PostsListPage from "./pages/PostsListPage";
 import PostFormPage from "./pages/PostFormPage";
 import ShowPostPage from "./pages/ShowPostPage";
 import AboutUsPage from "./pages/AboutUsPage";
@@ -53,6 +53,11 @@ function Navigation(props) {
             </NavLink>
           </li> */}
           <li className="nav-item">
+            <NavLink className="nav-link" to="/home">
+              Home
+            </NavLink>
+          </li>
+          <li className="nav-item">
             <NavLink className="nav-link" to="/about-us">
               About Us
             </NavLink>
@@ -71,11 +76,6 @@ function Navigation(props) {
               </NavLink>
             </li>
           )}
-          {/* <li className="nav-item">
-            <NavLink className="nav-link" to="/home">
-              Home
-            </NavLink>
-          </li> */}
           {user && (
             <li className="nav-item">
               <NavLink className="nav-link" to="/mybooks">
