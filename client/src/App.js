@@ -35,6 +35,7 @@ function Navigation(props) {
         console.error("Error fetching all user data", error);
       }
     }
+
     
     getUser();
   }, []);
@@ -46,11 +47,11 @@ function Navigation(props) {
           theBookNook
         </Link>
         <ul className="navbar-nav me-auto">
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <NavLink className="nav-link" to="/posts/new">
               Create a Micro Post
             </NavLink>
-          </li>
+          </li> */}
           <li className="nav-item">
             <NavLink className="nav-link" to="/about-us">
               About Us
@@ -70,11 +71,11 @@ function Navigation(props) {
               </NavLink>
             </li>
           )}
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <NavLink className="nav-link" to="/home">
               Home
             </NavLink>
-          </li>
+          </li> */}
           {user && (
             <li className="nav-item">
               <NavLink className="nav-link" to="/mybooks">
@@ -111,7 +112,7 @@ function App() {
               <Route path="/posts/:id" element={<ShowPostPage />} />
               <Route path="/book/:id" element={<ShowBookPage />} />
               <Route path="/about-us" element={<AboutUsPage />} />
-              <Route path="/" element={<PostsListPage />} />
+              <Route path="/" element={<HomePage />} />
               <Route path="/user-profile" element={<UserProfile />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/mybooks" element={<MyBooksPage />} />

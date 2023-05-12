@@ -8,9 +8,9 @@ import LoadingSpinner from "../components/LoadingSpinner";
 
 function MyBooks() {
   const location = useLocation();
-  const[myCurrentBooks, setMyCurrentBooks] = useState([]);
-  const[myReadBooks, setMyReadBooks] = useState([]);
-  const[myToReadBooks, setMyToReadBooks] = useState([]);
+  const [myCurrentBooks, setMyCurrentBooks] = useState([]);
+  const [myReadBooks, setMyReadBooks] = useState([]);
+  const [myToReadBooks, setMyToReadBooks] = useState([]);
   const [selectedOption, setSelectedOption] = useState(location.state || 'Read');
   const [loading, setLoading] = useState(true);
 

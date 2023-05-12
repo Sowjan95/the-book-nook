@@ -92,60 +92,73 @@ function UserProfile() {
   
   if (isLoading) return <LoadingSpinner />;
   return (
-
-    <div>
-      <h1 className="profileHeader title">
-        Welcome, {user ? user.username : "User"}!
-      </h1>
-
-      <div className= "placement-card">
-        <img className="profileImage img-thumbnail"
+  <div>
+    <h1 className="profileHeader title">
+      Welcome, {user ? user.username : "User"}!
+    </h1>
+    <div className= "placement-card">
+      <img className="profileImage img-thumbnail"
           src="https://i.pinimg.com/564x/d0/85/32/d0853248f043d7010f280d5b43687dc0.jpg"
           alt="User Profile"
-        />
-        <div className="logout">
-          {user && 
-            <button type="submit" className="btn btn-secondary" onClick={handleLogout}>
-              Logout
-            </button>
-          }
-        </div>
+      />
+      <div className="logout">
+        {user && 
+          <button type="submit" className="btn btn-secondary" onClick={handleLogout}>
+            Logout
+          </button>
+        }
       </div>
-       <br/>
-       <br/>
-
-<div className="row justify-content-center">
-       <div className="col-md-5">
+    </div>
+    <br/>
+    <br/>
+    <div className="container-fluid text-center">
+    <div className="row justify-content-center">
+      <div className="col-md-5">
        <h4 className="profileHeader title">Your Current Reads</h4>
          {myCurrentBooks.length > 0 && (
-          <div className="current-mybooks">
-            {myCurrentBooks.map((book) => (
-              <tr key={book.id}>
-                <td>{book.title}</td>
-                <td>{book.author}</td>
+        <table>
+          <thead>
+              <tr>
+                  <th>Title</th>
+                  <th>Author</th>
               </tr>
-            ))
-            }
-          </div>
+          </thead>
+          <tbody>
+              {myCurrentBooks.map((book) => (
+                  <tr key={book.id}>
+                      <td className="bookLink">{book.title}</td>
+                      <td>{book.author}</td>
+                  </tr>
+              ))}
+          </tbody>
+        </table>
         )}
       </div>
 
       <div className="col-md-5">
        <h4 className="profileHeader title">Your All Time Favorites</h4>
          {myFavoriteBooks.length > 0 && (
-          <div className="favorites-mybooks">
-            {myFavoriteBooks.map((book) => (
-              <tr key={book.id}>
-                <td>{book.title}</td>
-                <td>{book.author}</td>
+        <table>
+          <thead>
+              <tr>
+                  <th>Title</th>
+                  <th>Author</th>
               </tr>
-            ))
-            }
-          </div>
+          </thead>
+          <tbody>
+              {myFavoriteBooks.map((book) => (
+              <tr key={book.id}>
+                  <td className="bookLink">{book.title}</td>
+                  <td>{book.author}</td>
+              </tr>
+              ))}
+          </tbody>
+        </table>
         )}
       </div>
     </div>
     </div>
+  </div>
     
   );
 }
