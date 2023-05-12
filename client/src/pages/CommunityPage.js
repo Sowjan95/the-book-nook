@@ -5,6 +5,7 @@ import UserSearchBar from "../components/UserSearchBar";
 
 function Community(props) {
   const[myFriends, setMyFriends] = useState([]);
+  const[myRequests, setMyRequests] = useState([]);
   const[myRecs, setMyRecs] = useState([]);
 
   //fetch data
@@ -22,6 +23,40 @@ function Community(props) {
             (a.username > b.username ? 1 : -1)
         );
         setMyFriends(friendsData);
+      } catch (error) {
+        console.error("Error fetching friends", error);
+      }
+    }
+
+    async function getMyFriendRequests() {
+      try {
+        // get my friends
+        const friendsResponse = await fetch(
+          "/api/friend/"
+        );
+        const friendsData = await friendsResponse.json();
+        // get users that have me as a friend
+        const requestsResponse = await fetch(
+          "/api/friend/requests"
+        );
+        const requestData = await requestsResponse.json();
+        let friendsRequests = [];
+
+        // get friend requests
+        for (let i = 0; i < requestData.length; i++) {
+          const requestUsername = requestData[i].username;
+          let isAlreadyFriend = false;
+          for (let j = 0; j < friendsData.length; j++) {
+            if (friendsData[j].username === requestUsername) {
+              isAlreadyFriend = true;
+              break;
+            }
+          }
+          if (!isAlreadyFriend) {
+            friendsRequests.push(requestData[i]);
+          }
+        }
+        setMyRequests(friendsRequests);
       } catch (error) {
         console.error("Error fetching friends", error);
       }
@@ -57,6 +92,7 @@ function Community(props) {
 
     getMyFriends();
     getMyRecs();
+    getMyFriendRequests();
   }, []);
 
     return (
@@ -83,6 +119,26 @@ function Community(props) {
                 </table>
                 )}
                 </div>
+                <div className="col-md-5">
+                  <h4>Your Friend Requests</h4>
+                {myRequests.length > 0 && (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {myRequests.map((friend) => (
+                            <tr key={friend.id}>
+                                <td>{friend.username}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                )}
+                </div>
+                <br></br>
                 <div className="col-md-6">
                 <h4>Your Recommendations</h4>
                  {myRecs.length > 0 && (

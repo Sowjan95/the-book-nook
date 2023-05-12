@@ -41,31 +41,29 @@ router.get("/find/:username", passport.isAuthenticated(), async (req, res) => {
   return res.json(friend); 
 });
 
-// router.get('/friends', passport.isAuthenticated(), async (req, res) => {
-//   try {
-//     const user = await User.findOne({
-//       where: { id: req.user.id },
-//       include: [{
-//         model: User,
-//         as: 'Friends',
-//       }]
-//     });
+router.get('/friends', passport.isAuthenticated(), async (req, res) => {
+  try {
+    const user = await User.findOne({
+      include: [{
+        model: User,
+        as: 'Friends',
+        through: { attributes: [] }, // Exclude join table fields
+        where: { id: user.id }
+      }]
+    });
 
-//     const friends = user.Friends;
-//     res.json(friends);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// });
+    const friends = user.Friends;
+    res.json(friends);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 
-router.get("/:friendId", passport.isAuthenticated(), async (req, res) => {
-
-  const { friendId } = req.params;
+// get users that have you as a friend
+router.get("/requests", passport.isAuthenticated(), async (req, res) => {
   const user = req.user;
-
-  const friend = await User.findOne({
-    where: { id: friendId },
+  const friend = await User.findAll({
     include: [
       {
         model: User,
@@ -75,7 +73,6 @@ router.get("/:friendId", passport.isAuthenticated(), async (req, res) => {
       }
     ]
   });
-
   if (!friend) {
     return res.status(404).json({ message: "Friend not found" });
   }
