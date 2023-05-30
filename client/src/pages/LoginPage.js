@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext.js";
+import "../LoginPage.css"
 
 function  LoginPage(props) {
   const auth = useAuth();
@@ -90,7 +91,7 @@ function  LoginPage(props) {
           />
         </div>
         <div className="d-grid gap-2 mt-3 col-4 mx-auto">
-          <button type="submit" className="btn btn-primary justify-content-center">
+          <button type="submit" className="btn btn-primary justify-content-center login-button">
             Login
           </button>
         </div>
@@ -149,7 +150,7 @@ function  LoginPage(props) {
       </div>
       
       <div className="d-grid gap-2 mt-3 col-4 mx-auto">
-      <button type="submit" className="btn btn-primary text-center" >
+      <button type="submit" className="btn btn-primary text-center login-button">
         Sign Up
       </button>
       </div>

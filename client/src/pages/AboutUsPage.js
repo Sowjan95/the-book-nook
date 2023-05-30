@@ -1,9 +1,10 @@
 import React from "react";
+import "../LoginPage.css"
 
 function AboutUsPage(props) {
   return (
     <>
-      <div className="col text-center">
+      <div className="col text-center about-container">
         <h2 className="mb-3">About this project</h2>
         <p className="mb-5 col-6 mx-auto">
           <b>theBookNook</b> was created by Sowjanya Sritharasarma when she was a student in Cuny Tech Prep's eighth cohort.

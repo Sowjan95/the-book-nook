@@ -1,4 +1,24 @@
 /* Add custom CSS here */
+
+.btn-primary{
+  background-color: #828678 !important;
+  border-color: #828678 !important;
+}
+
+.btn-primary:hover {
+  background-color: #6e756c !important;
+  border-color: #6e756c !important;
+}
+
+.btn-primary:active {
+  background-color: #5c6259 !important;
+  border-color: #5c6259 !important;
+}
+
+#root, html, body{
+  background-color: #D5C7AC;
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -103,6 +123,17 @@ table {
     margin-top: 20px;
   }
 
+
+  .Auth-form-container, .about-container, .community-container {
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    background-color: #ECE6DA;
+    width: max-content;
+    height: max-content;
+    border-radius: 30px;
+  }
+
   .navbarcolor:hover {
-    color: #0D6EFD
+    color: #6e756c !important;
   }

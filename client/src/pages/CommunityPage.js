@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import UserSearchBar from "../components/UserSearchBar";
 
-
 function Community(props) {
   const[myFriends, setMyFriends] = useState([]);
   const[myRequests, setMyRequests] = useState([]);
@@ -128,7 +127,7 @@ function Community(props) {
     return (
     <div>
         <h1>Community</h1>
-        <div className="container-fluid text-center">
+        <div className="container-fluid text-center community-container">
             <div className="row justify-content-center">
                 <div className="col-md-5">
                   <h4>Your Friends List</h4>

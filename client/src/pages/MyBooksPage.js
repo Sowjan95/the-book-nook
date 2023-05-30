@@ -4,6 +4,7 @@ import ReadBookView from "../components/ReadBookView";
 import CurrentBookView from "../components/CurrentBookView";
 import ToReadBookView from "../components/ToReadBookView";
 import LoadingSpinner from "../components/LoadingSpinner";
+import "../LoginPage.css"
 
 
 function MyBooks() {
@@ -97,13 +98,13 @@ function MyBooks() {
                 <div className='App'>
                 <nav className="navbar navbar-expand-sm justify-content-center">
                     <div>
-                        <button className={selectedOption === 'Read' ? 'btn btn-primary' : 'btn btn-secondary'} onClick={() => setSelectedOption('Read')}>
+                        <button className={selectedOption === 'Read' ? 'btn btn-chosen' : 'btn  btn-notchosen'} onClick={() => setSelectedOption('Read')}>
                           Read
                         </button>
-                        <button className={selectedOption === 'Want to Read' ? 'btn btn-primary' : 'btn btn-secondary'} onClick={() => setSelectedOption('Want to Read')}>
+                        <button className={selectedOption === 'Want to Read' ? 'btn btn-chosen' : 'btn btn-notchosen'} onClick={() => setSelectedOption('Want to Read')}>
                           Want to Read
                         </button>
-                        <button className={selectedOption === 'Currently Reading' ? 'btn btn-primary' : 'btn btn-secondary'} onClick={() => setSelectedOption('Currently Reading')}>
+                        <button className={selectedOption === 'Currently Reading' ? 'btn btn-chosen' : 'btn btn-notchosen'} onClick={() => setSelectedOption('Currently Reading')}>
                           Currently Reading
                         </button>
                     </div>
