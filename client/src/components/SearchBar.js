@@ -77,6 +77,29 @@ const SearchBar = (props) => {
             <button className="btn btn-primary" type="submit">Search</button>
             </div>
         </form>
+
+        {!searchedBooks.length && (
+        <div>
+            <br></br>
+          <h4>Recommendations</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                </tr>
+            </thead>
+            <tbody>
+                {props.books.map((book) => (
+                    <tr key={book.id}>
+                        <Link to={"/book/" + book.id}><td className="bookLink">{book.title}</td></Link>
+                        <td>{book.author}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+        </div>
+      )}
         
         {searchedBooks.length > 0 && (
         <table>

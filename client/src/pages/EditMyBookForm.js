@@ -134,19 +134,9 @@ function EditForm(props) {
                 <input type="number" id="pagesRead" min="1" max="400" name="pagesRead" value={formValues.pagesRead} onChange={handleChange} />
               </div>
             </div>
-{/* 
-                <label>
-                    Pages Read:
-                    <input type="number" name="pagesRead" min="1" max="400" value={formValues.pagesRead}onChange={handleChange} />
-                </label>
-                <label>
-                    Date Started:
-                    <input type="date" name="dateStarted" value={formValues.dateStarted} onChange={handleChange} />
-                </label> */}
             </>)}
             <button className="btn btn-primary" type="submit">Submit</button>
         </form>
-        {/* <button className="btn btn-primary" type="submit">Submit</button> */}
     </div>
     </div>
     </div>

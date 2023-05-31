@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 // import CardTemplate from "../components/CardTemplate";
 import SearchBar from "../components/SearchBar";
+import { Link } from "react-router-dom";
 import "../App.css"
 
 function HomePage(props) {
   const[books, setBooks] = useState([]);
   const[myBooks, setMyBooks] = useState([]);
   const[myCurrentBooks, setMyCurrentBooks] = useState([]);
+
 
   //fetch data
   useEffect(() => {
@@ -22,7 +24,10 @@ function HomePage(props) {
         allBooksData.sort((a, b) =>
           a.createdAt > b.createdAt ? 1 : -1
         );
-        setBooks(allBooksData);
+         // Generate a random assortment of books
+        const randomBooks = getRandomAssortment(allBooksData, 10); // Change 10 to the desired number of random books to display
+
+        setBooks(randomBooks);
       } catch (error) {
         console.error("Error fetching all books", error);
       }
@@ -66,6 +71,12 @@ function HomePage(props) {
     getMyBooks();
     getMyCurrentBooks();
   }, []);
+
+  // Function to get a random assortment of books
+  const getRandomAssortment = (arr, count) => {
+    const shuffled = arr.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  };
 
   return (
     <div className="about-container">
