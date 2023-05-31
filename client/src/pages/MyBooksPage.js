@@ -91,7 +91,7 @@ function MyBooks() {
   }
 
     return (
-    <div>
+    <div className="community-container">
         <h1>My Books</h1>
         <div className="container-fluid text-center">
             <div className="justify-content-center">

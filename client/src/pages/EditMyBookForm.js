@@ -76,11 +76,14 @@ function EditForm(props) {
   }
 
   return (
+    <div className="d-flex justify-content-center">
+    <div className="community-container">
     <div className="col-md-8 col-lg-7 mx-auto">
         {error && <ErrorAlert details={"Failed to save the content"} />}
-        <h4>Add Book to Read Shelf</h4>
+        <h4>Edit Book Shelf</h4>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
+          <div className="input-group-item shelf-dropdown">
             <label>
                 Shelf:
                 <select value={formValues.shelf} onChange={handleShelfChange}>
@@ -89,29 +92,49 @@ function EditForm(props) {
                     <option value="Read">Read</option>
                 </select>
             </label>
+            </div>
+            </div>
             {(currentShelf==="Read") && (<>
-                <label>
-                    Rating:
-                    <input type="number" name="rating" min="0" max="5" value={formValues.rating} onChange={handleChange} />
-                </label>
-                <label>
-                    Review:
-                    <input type="text" name="review" value={formValues.review} onChange={handleChange} />
-                </label>
-                <label>
-                    Like:
-                    <input type="checkbox" name="like" checked={formValues.like} onChange={handleChange} />
-                </label>
-                <label>
-                    Date Started:
-                    <input type="date" name="dateStarted" value={formValues.dateStarted} onChange={handleChange} />
-                </label>
-                <label>
-                    Date Ended:
-                    <input type="date" name="dateEnded" value={formValues.dateEnded} onChange={handleChange} />
-                </label>
+            <div className="input-group">
+              <div className="input-group-item">
+                <label htmlFor="rating">Rating:</label>
+                <input type="number" name="rating" min="0" max="5" value={formValues.rating} onChange={handleChange} />
+              </div>
+              <div className="input-group-item">
+                <label htmlFor="like">Like:</label>
+                <input type="checkbox" id="like" name="like" checked={formValues.like} onChange={handleChange} />
+              </div>
+            </div>
+            <div className="input-group">
+              <div className="input-group-item">
+                <label htmlFor="review">Review:</label>
+                <textarea id="review" name="review" value={formValues.review} onChange={handleChange} className="expandable-input"></textarea>
+              </div>
+            </div>
+            <div className="input-group">
+              <div className="input-group-item">
+                <label htmlFor="dateStarted">Date Started:</label>
+                <input type="date" id="dateStarted" name="dateStarted" value={formValues.dateStarted} onChange={handleChange} />
+              </div>
+              <div className="input-group-item">
+                <label htmlFor="dateEnded">Date Ended:</label>
+                <input type="date" id="dateEnded" name="dateEnded" value={formValues.dateEnded} onChange={handleChange} />
+              </div>
+            </div>
             </>)}
             {(currentShelf==="Currently Reading") && (<>
+
+              <div className="input-group d-flex">
+              <div className="input-group-item">
+                <label htmlFor="dateStarted">Date Started:</label>
+                <input type="date" id="dateStarted" name="dateStarted" value={formValues.dateStarted} onChange={handleChange} />
+              </div>
+              <div className="input-group-item">
+                <label htmlFor="rating">Pages Read:</label>
+                <input type="number" id="pagesRead" min="1" max="400" name="pagesRead" value={formValues.pagesRead} onChange={handleChange} />
+              </div>
+            </div>
+{/* 
                 <label>
                     Pages Read:
                     <input type="number" name="pagesRead" min="1" max="400" value={formValues.pagesRead}onChange={handleChange} />
@@ -119,11 +142,13 @@ function EditForm(props) {
                 <label>
                     Date Started:
                     <input type="date" name="dateStarted" value={formValues.dateStarted} onChange={handleChange} />
-                </label>
+                </label> */}
             </>)}
             <button className="btn btn-primary" type="submit">Submit</button>
-          </div>
         </form>
+        {/* <button className="btn btn-primary" type="submit">Submit</button> */}
+    </div>
+    </div>
     </div>
     )
 }

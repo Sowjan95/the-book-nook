@@ -1,5 +1,4 @@
-/* Add custom CSS here */
-
+/* Button Primary and Secondary Rewrites */
 .btn-primary{
   background-color: #828678 !important;
   border-color: #828678 !important;
@@ -15,16 +14,25 @@
   border-color: #5c6259 !important;
 }
 
+/* Background color of app */
 #root, html, body{
   background-color: #D5C7AC;
 }
 
+/* Navbar bottom border */
+.nav-primary{
+  border-bottom: 1px solid #828678 !important;
+}
+
+/* Table CSS for  */
 table {
     border-collapse: collapse;
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
+    margin-top: 10px;
     font-family: Arial, sans-serif;
+    /* border-bottom: 1px solid #828678;  */
   }
   
   th, td {
@@ -33,69 +41,17 @@ table {
   }
   
   th {
-    background-color: #f2f2f2;
     font-weight: bold;
+    font-size: large;
     text-align: left;
   }
 
   tr {
     text-align: left;
-  }
-  
-  tr:nth-child(even) {
-    text-align: left;
-    background-color: #f2f2f2;
-  }
-  
-  tr:hover {
-    background-color: #ddd;
-  }
+    border-bottom: 1px solid #828678 !important;
 
-
-  /* Dropdown Button */
-.dropbtn {
-    background-color: #3498DB;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
   }
   
-  /* Dropdown button on hover & focus */
-  .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
-  }
-  
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #ddd;}
-  
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  .show {display:block;}
 
   .btn {
     margin-left: 4px;
@@ -123,7 +79,6 @@ table {
     margin-top: 20px;
   }
 
-
   .Auth-form-container, .about-container, .community-container {
     margin-top: 20px;
     padding-top: 20px;
@@ -137,3 +92,35 @@ table {
   .navbarcolor:hover {
     color: #6e756c !important;
   }
+
+
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.input-group-item {
+  flex-basis: 0;
+  flex-grow: 1;
+  display: flex;
+  margin-bottom: 10px;
+}
+.input-group-item label{
+  margin-right: 5px;
+}
+
+.small-input {
+  width: 50px;
+}
+
+.expandable-input {
+  height: 100px;
+  resize: vertical;
+}
+
+.shelf-dropdown{
+  display: block;
+  font-weight: bold;
+  margin-bottom: 15px;
+}

@@ -125,9 +125,9 @@ function Community(props) {
 
 
     return (
-    <div>
+    <div className="community-container">
         <h1>Community</h1>
-        <div className="container-fluid text-center community-container">
+        <div className="container-fluid text-center">
             <div className="row justify-content-center">
                 <div className="col-md-5">
                   <h4>Your Friends List</h4>

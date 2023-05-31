@@ -135,12 +135,12 @@ const UserSearchBar = ( {props, addFriend, addRec, myFriends } ) => {
                         {addFriend &&
                             <td className="d-flex justify-content-end">
                                 {!success &&
-                                <button className="btn btn-primary addRec" onClick={handleAddFriendSubmit}>
+                                <button className="btn btn-chosen addRec" onClick={handleAddFriendSubmit}>
                                     Add Friend
                                 </button>
                                 }
                                 {success &&
-                                <button className="btn btn-secondary">
+                                <button className="btn btn-notchosen">
                                     Friend Added!
                                 </button>
                                 }

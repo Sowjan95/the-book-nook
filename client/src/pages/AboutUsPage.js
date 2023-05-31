@@ -1,5 +1,4 @@
 import React from "react";
-import "../LoginPage.css"
 
 function AboutUsPage(props) {
   return (
@@ -13,7 +12,7 @@ function AboutUsPage(props) {
           <br></br>
           Sowjanya is a Hunter College computer science student in her junior year. She hopes to continue working
           on tech projects that combine the arts and technology.
-        </p>
+          </p>
       </div>
     </>
   );

@@ -68,7 +68,7 @@ function HomePage(props) {
   }, []);
 
   return (
-    <div>
+    <div className="about-container">
       <h1>Home</h1>
       
       <div className='App'>

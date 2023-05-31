@@ -60,36 +60,45 @@ function ReadForm(props) {
   }
 
   return (
-    <div className="col-md-8 col-lg-7 mx-auto">
-        {error && <ErrorAlert details={"Failed to save the content"} />}
-        <h4>Add Book to Read Shelf</h4>
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label>
-              Rating:
-              <input type="number" name="rating" min="1" max="5" onChange={handleChange} />
-            </label>
-            <label>
-              Review:
-              <input type="text" name="review" value={formValues.review} onChange={handleChange} />
-            </label>
-            <label>
-              Like:
-              <input type="checkbox" name="like" checked={formValues.like} onChange={handleChange} />
-            </label>
-            <label>
-              Date Started:
-              <input type="date" name="dateStarted" value={formValues.dateStarted} onChange={handleChange} />
-            </label>
-            <label>
-              Date Ended:
-              <input type="date" name="dateEnded" value={formValues.dateEnded} onChange={handleChange} />
-            </label>
+    <div className="d-flex justify-content-center">
+      <div className="community-container">
+        <div className="col-md-8 col-lg-7 mx-auto">
+          {error && <ErrorAlert details={"Failed to save the content"} />}
+          <h4>Add Book to Read Shelf</h4>
+          <form onSubmit={handleSubmit}>
+            <div className="input-group">
+              <div className="input-group-item">
+                <label htmlFor="rating">Rating:</label>
+                <input type="number" id="rating" name="rating" min="1" max="5" onChange={handleChange} className="small-input" />
+              </div>
+              <div className="input-group-item">
+                <label htmlFor="like">Like:</label>
+                <input type="checkbox" id="like" name="like" checked={formValues.like} onChange={handleChange} />
+              </div>
+            </div>
+            <div className="input-group">
+              <div className="input-group-item">
+                <label htmlFor="review">Review:</label>
+                <textarea id="review" name="review" value={formValues.review} onChange={handleChange} className="expandable-input"></textarea>
+              </div>
+            </div>
+            <div className="input-group">
+              <div className="input-group-item">
+                <label htmlFor="dateStarted">Date Started:</label>
+                <input type="date" id="dateStarted" name="dateStarted" value={formValues.dateStarted} onChange={handleChange} />
+              </div>
+              <div className="input-group-item">
+                <label htmlFor="dateEnded">Date Ended:</label>
+                <input type="date" id="dateEnded" name="dateEnded" value={formValues.dateEnded} onChange={handleChange} />
+              </div>
+            </div>
             <button className="btn btn-primary" type="submit">Submit</button>
-          </div>
-        </form>
+          </form>
+        </div>
+      </div>
     </div>
-    )
+  );
+  
 }
 
 function ToReadForm(props) {
@@ -186,22 +195,26 @@ function CurrentlyReadingForm(props) {
   }
 
   return (
+    <div className="d-flex justify-content-center">
+    <div className="community-container">
     <div className="col-md-8 col-lg-7 mx-auto">
         {error && <ErrorAlert details={"Failed to save the content"} />}
         <h4>Add Book to Read Shelf</h4>
         <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label>
-              Date Started:
-              <input type="date" name="dateStarted" value={formValues.dateStarted} onChange={handleChange} />
-            </label>
-            <label>
-              Pages Read:
-              <input type="number" name="pagesRead" onChange={handleChange} />
-            </label>
+            <div className="input-group">
+              <div className="input-group-item">
+                <label htmlFor="dateStarted">Date Started:</label>
+                <input type="date" id="dateStarted" name="dateStarted" value={formValues.dateStarted} onChange={handleChange} />
+              </div>
+              <div className="input-group-item">
+                <label htmlFor="rating">Pages Read:</label>
+                <input type="number" id="pagesRead" name="pagesRead" onChange={handleChange} />
+              </div>
+            </div>
             <button className="btn btn-primary" type="submit">Submit</button>
-          </div>
         </form>
+    </div>
+    </div>
     </div>
     )
 

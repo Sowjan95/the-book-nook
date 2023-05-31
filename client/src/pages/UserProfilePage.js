@@ -92,7 +92,7 @@ function UserProfile() {
   
   if (isLoading) return <LoadingSpinner />;
   return (
-  <div>
+  <div className="community-container">
     <h1 className="profileHeader title">
       Welcome, {user ? user.username : "User"}!
     </h1>
@@ -103,7 +103,7 @@ function UserProfile() {
       />
       <div className="logout">
         {user && 
-          <button type="submit" className="btn btn-secondary" onClick={handleLogout}>
+          <button type="submit" className="btn btn-primary" onClick={handleLogout}>
             Logout
           </button>
         }
