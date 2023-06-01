@@ -117,7 +117,7 @@ function  LoginPage(props) {
     
     <form className="Auth-form col-7 mx-auto" onSubmit={handleSignup}>
       <div className="form-group mt-3">
-        <label>Full Name</label>
+        <label>Username</label>
         <input
           type="username"
           value={username}
