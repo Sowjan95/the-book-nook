@@ -1,6 +1,6 @@
-# CTP Project Starter
+# theBookNook
 
-A full stack web application starter template for building projects with React, Express.js, and Sequelize.js
+A full stack web application that delivers a user-friendly book cataloging system that also allows users to send book recommendations to friends. Built from a starter template for building projects with React, Express.js, and Sequelize.js
 
 **Current version:** 2022.2 (Oct 2022)
 
